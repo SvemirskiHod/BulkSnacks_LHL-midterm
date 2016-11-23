@@ -1,0 +1,22 @@
+
+img#main-basket {
+  float: right;
+  height: 50px;
+  padding-right: 1%;
+}
+
+.navbar, #navbar {
+  background-color: #F4D95D
+}
+
+ .navbar-header > a.navbar-brand {
+  color: #FC292A;
+  font-size: 2.2em;
+  text-shadow: 0.8px 0.8px 2px black;
+}
+
+button.btn.btn-success {
+  background-color: white;
+  border-color: gray;
+  color: black;
+}
