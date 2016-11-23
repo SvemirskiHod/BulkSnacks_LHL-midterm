@@ -30,7 +30,7 @@
     "knex": "^0.12.6",
     "knex-logger": "^0.1.0",
     "morgan": "^1.7.0",
-    "node-sass": "^3.13.0",
+    "node-sass-middleware": "^0.10.0",
     "pg": "^6.1.0"
   },
   "devDependencies": {
