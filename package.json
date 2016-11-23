@@ -1,0 +1,19 @@
+{
+  "name": "midterm",
+  "version": "1.0.0",
+  "description": "midterm project for LHL bootcamp, restaurant ordering system with SMS API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/micahwkb/LHL-midterm-project.git"
+  },
+  "author": "Joao Coelho & Micah Britton",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/micahwkb/LHL-midterm-project/issues"
+  },
+  "homepage": "https://github.com/micahwkb/LHL-midterm-project#readme"
+}
