@@ -116,12 +116,10 @@ app.get("/snacks", (req,res) =>{
       console.log(err);
       //knex.destroy();
     });
+});
 
-
-  ///////////
-
-    ////////////
-
+app.get("/basket", (req,res) =>{
+  res.render("basket");
 });
 
 app.listen(PORT, () => {
