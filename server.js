@@ -58,6 +58,32 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
+
+
+
+app.get("/snacks", (req,res) =>{
+  var snacksList;
+  knex
+    .select()
+    .from('snacks')
+    .then(function(result){
+      snacksList = result;
+      console.log(snacksList);
+      //knex.destroy();
+      res.render("snacks", {snacks: snacksList});
+    })
+    .catch(function(err){
+      console.log(err);
+      //knex.destroy();
+    });
+
+
+  ///////////
+
+    ////////////
+
+});
+
 app.listen(PORT, () => {
   console.log('Example app listening on port ' + PORT);
 });

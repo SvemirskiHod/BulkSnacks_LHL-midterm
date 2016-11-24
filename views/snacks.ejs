@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Bulk Snacks</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/styles/style.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <% include partials/_nav %>
+    <div class="jumbotron">
+      <div class="container">
+        <% include partials/_header %>
+        <p>Let's get right to the good stuff... Order all the snacks you love, without the fuss of finding the right bins. We'll do the scooping.</p>
+        <p class="registration">Register in seconds for free <a href="/register">here</a></p>
+       <!--  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p> -->
+      </div>
+    </div>
+
+
+
+
+
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+
+        <div class="col-lg-2"></div>
+
+        <% snacks.forEach(function(elm){ %>
+        <a href="#">
+          <div class="product">
+            <img src="snack_images/<%= elm['img-filename']%>" alr="bazinga"></div>
+            <h2> <%= elm.name%> </h2>
+            <p> $<%= elm["price-per-100g"]/100 %> per 100 grams </p>
+          </div>
+        </a>
+        <% }) %>
+
+        <div class="col-lg-2"></div>
+
+      </div>
+
+      <hr>
+
+      <footer>
+        <p>&copy; M-J_Designz, Inc.</p>
+      </footer>
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="/js/bootstrap.min.js"></script>
+
+  </body>
+</html>
