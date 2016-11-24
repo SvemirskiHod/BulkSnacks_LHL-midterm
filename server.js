@@ -66,7 +66,6 @@ app.get("/snacks", (req,res) =>{
     .from('snacks')
     .then(function(result){
       snacksList = result;
-      console.log(snacksList);
       //knex.destroy();
       res.render("snacks", {snacks: snacksList});
     })
