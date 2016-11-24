@@ -6,3 +6,32 @@ body {
   }
 }
 
+div.col-md-4 {
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 220px;
+  margin: 10px;
+  p {
+    font-size: 1.5em;
+    color: white;
+    text-shadow: 1px 1px 7px black;
+  }
+  h2 {
+    color: black;
+    font-weight: 700;
+  }
+}
+
+p.registration {
+  font-style: italic;
+  a {
+    font-weight: 700;
+  }
+}
+.block-1 {
+  background-image: url('/images/jubejubes-lg.jpg');
+}
+
+.block-2 {
+  background-image: url('/images/almonds-lg.jpg');
+}
