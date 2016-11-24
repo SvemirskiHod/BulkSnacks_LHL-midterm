@@ -64,8 +64,6 @@ app.get("/", (req, res) => {
 });
 
 
-
-
 app.get("/snacks", (req,res) =>{
   var snacksList;
   knex
@@ -81,12 +79,6 @@ app.get("/snacks", (req,res) =>{
       console.log(err);
       //knex.destroy();
     });
-
-
-  ///////////
-
-    ////////////
-
 });
 
 app.listen(PORT, () => {
