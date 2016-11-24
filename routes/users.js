@@ -33,6 +33,11 @@ module.exports = (knex) => {
         console.error(error);
       });
   });
+  app.post('/logout', (req, res) => {
+      req.session = null;
+      res.redirect('/');
+  });
+
   // example below - we can add more routes to the exports
   // ** keep it related to 'users' for this module! **
   app.get('/test', (req, res) => {
