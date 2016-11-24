@@ -56,7 +56,12 @@ exports.seed = function(knex, Promise) {
               'name': 'Mini Chocolate Chip Cookies',
               'price-per-100g': 125,
               'img-filename': 'mini-choc-chip-cookies.png'
-            }
+            }/*,
+            {
+              'name': '',
+              'price-per-100g': ,
+              'img-filename': ''
+            }*/
           ])
       ]);
     });
