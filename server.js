@@ -60,7 +60,7 @@ app.get('/', (req, res) => {
 
 
 app.get("/snacks", (req,res) =>{
-  var snacksList;
+  let snacksList;
   knex
     .select()
     .from('snacks')
@@ -76,7 +76,19 @@ app.get("/snacks", (req,res) =>{
 });
 
 app.get("/basket", (req,res) =>{
-  res.render("basket");
+  let snacksList;
+  knex
+  .select()
+  .from('snacks')
+  .then(function(result){
+    snacksList = result;
+    //knex.destroy();
+    res.render("basket", {snacks: snacksList});
+  })
+  .catch(function(err){
+    console.log(err);
+    //knex.destroy();
+  });
 });
 
 app.listen(PORT, () => {
