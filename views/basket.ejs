@@ -13,7 +13,7 @@
         <% include partials/_header %>
         <% if(array.length === 0){ %>
         <h1>Looks like there's nothing here!</h1>
-        <p>Please visit our snacks page and add some snacks to your basket.</p>
+        <a href="/snacks"><p>Click here to start adding some snacks to your basket.</p></a>
         <% } else{ %>
         <h2> Welcome to your basket </h2>
         <p>Have a look at the snacks you have already added.</p>
@@ -35,8 +35,15 @@
             </div>
             <div class="product-info">
               <h5> <%= elm.name%> </h5>
-              <h6> Quantity: <%= Number(obj[array[counter]]) %> </h6>
-              <button data-productid="<%=elm.id%>" class="delete-button"> Delete BUTTON</button>
+              <h6>
+                Quantity:
+                <input id="<%=elm.id%>" type="number"
+                       value="<%= Number(obj[array[counter]]) %>" class="qty"
+                       min="1"/>
+              </h6>
+
+              <button  class="add-quantity"> Add Quantity</button>
+              <button  class="reduce-quantity"> Reduce Quantity</button>
             </div>
           </div>
             <% }) %>
@@ -49,6 +56,6 @@
 
 
 
-    <script src="scripts/retrieve_cart.js"></script>
+    <script src="scripts/basketscripts.js"></script>
   </body>
 </html>

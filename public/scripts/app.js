@@ -9,7 +9,7 @@ $(document).ready(function() {
     window.location.href = "/basket?" + $.param(JSON.parse(localStorage.getItem('cart')));
   });
 
-})
+});
 
 /*$(() => {
   $.ajax({
