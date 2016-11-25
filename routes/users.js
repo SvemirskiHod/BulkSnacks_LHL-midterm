@@ -79,7 +79,7 @@ module.exports = (knex) => {
 
   app.post('/logout', (req, res) => {
       req.session = null;
-      res.redirect('/');
+      res.render('/');
   });
 
   // example below - we can add more routes to the exports

@@ -90,6 +90,25 @@ const getUserName = (uid, cb) => {
     });
 };
 
+// Populate "name" property for EJS render
+// ...then render the page parameter
+const passNameForRender = (req, res, page, paramsObject) => {
+  // check for session cookie
+  const uid = req.session.user_id;
+  // if cookie exists, get username for the uid
+  if (uid) {
+    getUserName(uid, (user) => {
+      // add name to render params
+      paramsObject.name = user.name;
+      res.render(page, paramsObject);
+    });
+  }
+  else {
+    // ... or populate name key as empty string
+    paramsObject.name = '';
+    res.render(page, paramsObject);
+  }
+};
 
 /*
 ---  GET REQUEST HANDLERS ---
@@ -97,40 +116,24 @@ const getUserName = (uid, cb) => {
 
 // ---- home page ----
 app.get('/', (req, res) => {
-  const uid = req.session.user_id;
-  // no session cookie? ...render index page
-  if (!uid) {
-    res.render('index');
-    return;
-  }
-  const username = getUserName(uid, (user) => {
-    // session cookie is valid? ...render different nav
-    if (user) {
-      res.render('index_auth', {name: user.name});
-    }
-    else {
-      res.render('index');
-    }
-  });
+  passNameForRender(req, res, 'index', {});
 });
 
 // ---- snacks list ----
 app.get("/snacks", (req,res) =>{
-  let snacksList;
+  // find all the snacks in the 'snacks' table
   knex
     .select()
     .from('snacks')
-    .then(function(result){
-      snacksList = result;
-      // console.log(snacksList);
-      //knex.destroy();
-      res.render("snacks", {snacks: snacksList});
+    .then((result) => {
+      passNameForRender(req, res, 'snacks', {snacks: result});
     })
     .catch(function(err){
       console.log(err);
-      //knex.destroy();
     });
 });
+
+
 // ---- registration ----
 app.get('/register', (req, res) => {
   res.render('register');
