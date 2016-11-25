@@ -7,15 +7,14 @@ const ENV         = process.env.ENV || 'development';
 const express     = require('express');
 const bodyParser  = require('body-parser');
 const sass        = require('node-sass');
-const app         = express();
 const session     = require('cookie-session');
-
-const knexConfig  = require('./knexfile');
-const knex        = require('knex')(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 const fs          = require('fs');
-
+const knexConfig  = require('./knexfile');
+const knex        = require('knex')(knexConfig[ENV]);
+const helpers     = require('./server/helper-functions');
+const app         = express();
 
 app.use(session({
   name: "session",
@@ -25,7 +24,6 @@ app.use(session({
 
 // Seperated Routes for each Resource
 const usersRoutes = require('./routes/users');
-// const routes      = require('./routes/main');
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
@@ -61,64 +59,12 @@ app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
 // Mount all resource routes
 app.use('/api/users', usersRoutes(knex));
 
-
-/*
---- FUNCTIONS ---
-*/
-
-// retrieve user's id given their email
-const getUserIdFromEmail = (email, cb) => {
-  knex('accounts')
-    .select('userid').where('email', email)
-    .then((result) => {
-      cb(result[0]);
-    })
-    .catch((error) => {
-      if(error) throw error;
-    })
-};
-
-// retrieve user's name from 'accounts' table in database
-const getUserName = (uid, cb) => {
-   knex('accounts')
-    .select('name').where('userid', uid)
-    .then((result) => {
-      cb(result[0])
-    })
-    .catch((error) => {
-      if(error) throw error;
-    });
-};
-
-// Populate "name" property for EJS render
-// ...then render the page parameter
-const passNameForRender = (req, res, page, paramsObject) => {
-  // check for session cookie
-  const uid = req.session.user_id;
-  // if cookie exists, get username for the uid
-  if (uid) {
-    getUserName(uid, (user) => {
-      // add name to render params
-      paramsObject.name = user.name;
-      res.render(page, paramsObject);
-    });
-  }
-  else {
-    // ... or populate name key as empty string
-    paramsObject.name = '';
-    res.render(page, paramsObject);
-  }
-};
-
-/*
----  GET REQUEST HANDLERS ---
-*/
-
 // ---- home page ----
 app.get('/', (req, res) => {
-  passNameForRender(req, res, 'index', {});
+  helpers.passParamsForRender(req, res, 'index', {});
 });
 
+app.get('/password')
 // ---- snacks list ----
 app.get("/snacks", (req,res) =>{
   // find all the snacks in the 'snacks' table
@@ -126,14 +72,12 @@ app.get("/snacks", (req,res) =>{
     .select()
     .from('snacks')
     .then((result) => {
-      passNameForRender(req, res, 'snacks', {snacks: result});
+      helpers.passParamsForRender(req, res, 'snacks', {snacks: result});
     })
     .catch(function(err){
       console.log(err);
     });
 });
-
-
 // ---- registration ----
 app.get('/register', (req, res) => {
   res.render('register');
@@ -147,7 +91,6 @@ app.get("/basket", (req,res) =>{
   .from('snacks')
   .then(function(result){
     snacksList = result;
-    //knex.destroy();
     res.render("basket", {snacks: snacksList});
   })
   .catch(function(err){
@@ -156,6 +99,10 @@ app.get("/basket", (req,res) =>{
   });
 });
 
+
+/*
+--- SERVER INIT ---
+*/
 app.listen(PORT, () => {
   console.log('Example app listening on port ' + PORT);
 });

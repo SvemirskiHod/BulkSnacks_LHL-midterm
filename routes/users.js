@@ -3,6 +3,7 @@
 const express = require('express');
 const bcrypt  = require('bcrypt');
 const app     = express.Router();
+const helpers = require('../server/helper-functions');
 
 
 // test if password matches db hash
@@ -27,15 +28,14 @@ module.exports = (knex) => {
       .select('*').where('email', email)
       .then((account) => {
         if (account.length === 0) {
-          res.render('uname_error');
+          helpers.passParamsForRender(req, res, 'index', {errors: {baduser: true}});
           return;
         }
-        else if (passwordsMatch(account[0], password)) {
-          req.session.user_id = account[0].userid;
-          res.redirect('/');
+        else if (passwordsMatch(account[0], password) === false) {
+          helpers.passParamsForRender(req, res, 'index', {errors: {badpass: true}});
         }
         else {
-          res.render('password_err');
+          helpers.passParamsForRender(req, res, 'index', {});
         }
       })
       .catch((error) => {
@@ -79,7 +79,7 @@ module.exports = (knex) => {
 
   app.post('/logout', (req, res) => {
       req.session = null;
-      res.render('/');
+      res.redirect('/');
   });
 
   // example below - we can add more routes to the exports
