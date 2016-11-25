@@ -14,9 +14,6 @@ const passwordsMatch = (account, attemptedPassword) => {
 const createHashedPassword = (password) => {
   return bcrypt.hashSync(password, 10);
 };
-// doesEmailExist
-
-
 
 module.exports = (knex) => {
 
@@ -27,14 +24,17 @@ module.exports = (knex) => {
     knex('accounts')
       .select('*').where('email', email)
       .then((account) => {
+        // -- email doesn't exist in 'accounts' table --
         if (account.length === 0) {
-          helpers.passParamsForRender(req, res, 'index', {errors: {baduser: true}});
+          helpers.passParamsForRender(req, res, 'index', {errors: {baduser: true}}).bind();
           return;
         }
+        // -- password mismatch --
         else if (passwordsMatch(account[0], password) === false) {
           helpers.passParamsForRender(req, res, 'index', {errors: {badpass: true}});
         }
         else {
+          req.session.user_id = account[0].userid;
           helpers.passParamsForRender(req, res, 'index', {});
         }
       })
@@ -63,7 +63,6 @@ module.exports = (knex) => {
               const userId = resp[0];
               req.session.user_id = userId;
               res.redirect('/');
-
             })
         }
         else {
@@ -74,18 +73,11 @@ module.exports = (knex) => {
       .catch((error) => {
         if(error) console.error(error);
       })
-
   });
 
   app.post('/logout', (req, res) => {
       req.session = null;
       res.redirect('/');
-  });
-
-  // example below - we can add more routes to the exports
-  // ** keep it related to 'users' for this module! **
-  app.get('/test', (req, res) => {
-    res.send('It works!');
   });
 
   return app;
