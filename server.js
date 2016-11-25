@@ -80,7 +80,7 @@ app.get("/snacks", (req,res) =>{
 });
 // ---- registration ----
 app.get('/register', (req, res) => {
-  res.render('register');
+  helpers.passParamsForRender(req, res, 'register', {});
 });
 
 // ---- basket / checkout ----
