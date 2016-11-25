@@ -128,18 +128,27 @@ app.get('/register', (req, res) => {
 
 // ---- basket / checkout ----
 app.get("/basket", (req,res) =>{
+  console.log(req.query);
+  let idArray = [];
+  let idStringArray = idArray;
+    for(var key in req.query){
+      idArray.push(key);
+    }
+  idArray = idArray.map(Number);
+  console.log(idArray);
+
   let snacksList;
   knex
   .select()
   .from('snacks')
+  .whereIn('id', idArray)
   .then(function(result){
     snacksList = result;
-    //knex.destroy();
-    res.render("basket", {snacks: snacksList});
+    console.log(snacksList);
+    res.render("basket", {snacks: snacksList, array: idStringArray, obj: req.query});
   })
   .catch(function(err){
     console.log(err);
-    //knex.destroy();
   });
 });
 

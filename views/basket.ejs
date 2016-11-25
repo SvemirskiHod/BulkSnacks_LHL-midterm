@@ -11,8 +11,13 @@
     <div class="jumbotron">
       <div class="container">
         <% include partials/_header %>
-        <h1>BASKET PAGE</h1>
+        <% if(array.length === 0){ %>
+        <h1>Looks like there's nothing here!</h1>
+        <p>Please visit our snacks page and add some snacks to your basket.</p>
+        <% } else{ %>
+        <h2> Welcome to your basket </h2>
         <p>Have a look at the snacks you have already added.</p>
+        <% }%>
         <p class="registration">Register in seconds for free <a href="/register">here</a></p>
        <!--  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p> -->
       </div>
@@ -23,15 +28,15 @@
       <div class="row">
 
      <section class="products">
-        <% snacks.forEach(function(elm){ %>
+        <% snacks.forEach(function(elm, counter){ %>
           <div class="product-card">
             <div class="product-image">
               <img src="snack_images/<%= elm['img-filename']%>" alt="picture">
             </div>
             <div class="product-info">
               <h5> <%= elm.name%> </h5>
-              <h6>$<%= elm["price-per-100g"]/100 %> per 100 grams </h6>
-              <button data-productid="<%=elm.id%>" class="add_item_button"> ADD TO CART</button>
+              <h6> Quantity: <%= Number(obj[array[counter]]) %> </h6>
+              <button data-productid="<%=elm.id%>" class="delete-button"> Delete BUTTON</button>
             </div>
           </div>
             <% }) %>
