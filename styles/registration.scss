@@ -12,3 +12,23 @@
   color: white;
   border-color: gray;
 }
+
+.user-error {
+  margin: 0px;
+  text-align: center;
+  h4 {
+    font-style: italic;
+    color: crimson;
+    font-size: 1.8em;
+  }
+  h4, h5 {
+    font-weight: 700;
+  }
+  h5 {
+    font-size: 1.3em;
+  }
+  hr {
+    border-color: black;
+  }
+}
+

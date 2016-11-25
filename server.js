@@ -66,9 +66,20 @@ app.use('/api/users', usersRoutes(knex));
 --- FUNCTIONS ---
 */
 
-// retrieve user's real name from 'accounts' table in database
+// retrieve user's id given their email
+const getUserIdFromEmail = (email, cb) => {
+  knex('accounts')
+    .select('userid').where('email', email)
+    .then((result) => {
+      cb(result[0]);
+    })
+    .catch((error) => {
+      if(error) throw error;
+    })
+};
+
+// retrieve user's name from 'accounts' table in database
 const getUserName = (uid, cb) => {
-  console.log('in getUserName')
    knex('accounts')
     .select('name').where('userid', uid)
     .then((result) => {
@@ -93,10 +104,9 @@ app.get('/', (req, res) => {
     return;
   }
   const username = getUserName(uid, (user) => {
-    // session cookie is valid? ...render index-auth
+    // session cookie is valid? ...render different nav
     if (user) {
-      console.log(user.name);
-      res.render('index-auth', {name: user.name});
+      res.render('index_auth', {name: user.name});
     }
     else {
       res.render('index');

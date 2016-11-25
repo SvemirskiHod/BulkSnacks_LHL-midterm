@@ -89,7 +89,16 @@ var validatePhoneNumber = function() {
       <h4>Please enter your phone number like this:</h4>
       <h4>333-222-1111</h4>
     `);
-   return false;
+    return false;
+
+  }
+  else if ($phone.val().length > 12) {
+   $warning.html(`
+      <h4>Your phone number is too long...</h4>
+      <h4>Please enter your phone number like this:</h4>
+      <h4>333-222-1111</h4>
+    `);
+    return false;
   }
   else {
     $warning.empty();
@@ -111,10 +120,10 @@ var makeSubmitButtonInactive = function() {
 };
 
 var validateForm = function() {
-  if (validateName() &&
-      validateEmail() &&
-      validatePassword() &&
-      validatePhoneNumber()) {
+  if (validateName()        &&
+      validateEmail()       &&
+      validatePhoneNumber() &&
+      validatePassword()) {
     // if all above are true
     makeSubmitButtonActive();
   }
@@ -128,20 +137,16 @@ $(document).ready(function() {
   $warning.empty();
   $('#register-submit').prop({disabled: true});
 
-  // validateForm();
   $name.blur(function() {
     validateName();
-    validateForm();
   });
   $email.blur(function() {
     validateEmail();
-    validateForm();
   });
   $phone.blur(function() {
     validatePhoneNumber();
-    validateForm();
   });
-  $pwdB.blur(function() {
+  $pwdB.keyup(function() {
     validatePassword();
     validateForm();
   });
