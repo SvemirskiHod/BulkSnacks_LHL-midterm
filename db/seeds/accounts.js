@@ -11,7 +11,7 @@ exports.seed = function(knex, Promise) {
               'name': 'Snacky McSnackface',
               'email': 't@t.com',
               'phone': '416-555-4433',
-              'password': 'password'
+              'password': '$2a$10$qbJdDAG/KgAKA2chXcvdGO4LC1U52g1PEQEzdODw8lzG7v5xBElSK'
             }/*,
             {
               'name': '',
