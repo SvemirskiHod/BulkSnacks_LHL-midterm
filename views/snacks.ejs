@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <% include partials/_head%>
+
   </head>
 
   <body>
@@ -22,11 +23,12 @@
         <% snacks.forEach(function(elm){ %>
           <div class="product-card">
             <div class="product-image">
-              <img src="snack_images/<%= elm['img-filename']%>" alt="bazinga">
+              <img src="snack_images/<%= elm['img-filename']%>" alt="picture">
             </div>
             <div class="product-info">
               <h5> <%= elm.name%> </h5>
               <h6>$<%= elm["price-per-100g"]/100 %> per 100 grams </h6>
+              <button data-productid="<%=elm.id%>" class="add_item_button"> ADD TO CART</button>
             </div>
           </div>
             <% }) %>
@@ -37,5 +39,10 @@
       <% include partials/_footer %>
     </div> <!-- /container -->
     <% include partials/_scripts %>
+    <script src="scripts/add_to_cart_button.js"></script>
   </body>
+
+
+
+
 </html>

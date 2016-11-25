@@ -2,6 +2,8 @@
 <html lang="en">
   <head>
     <% include partials/_head%>
+    <% include partials/_scripts %>
+
   </head>
 
   <body>
@@ -19,28 +21,29 @@
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
-        <div class="col-lg-2"></div>
-        <a href="#">
-          <div class="block-1 col-md-4">
-            <h2>make new order</h2>
-            <p>Already know what you want? Get scooping!</p>
+
+     <section class="products">
+        <% snacks.forEach(function(elm){ %>
+          <div class="product-card">
+            <div class="product-image">
+              <img src="snack_images/<%= elm['img-filename']%>" alt="picture">
+            </div>
+            <div class="product-info">
+              <h5> <%= elm.name%> </h5>
+              <h6>$<%= elm["price-per-100g"]/100 %> per 100 grams </h6>
+              <button data-productid="<%=elm.id%>" class="add_item_button"> ADD TO CART</button>
+            </div>
           </div>
-        </a>
-        <a href="/snacks">
-          <div class="block-2 col-md-4">
-            <h2>see all the snacks</h2>
-            <p>Not sure what you want yet? Browse our curated selection of delicious snacks. </p>
-          </div>
-        </a>
-        <div class="col-lg-2"></div>
-      </div>
+            <% }) %>
+        </section>
 
       <hr>
 
     <% include partials/_footer %>
     </div> <!-- /container -->
 
-    <% include partials/_scripts %>
 
+
+    <script src="scripts/retrieve_cart.js"></script>
   </body>
 </html>
