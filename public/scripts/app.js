@@ -1,4 +1,10 @@
-$(() => {
+
+$(document).ready(function() {
+
+  // checkCookie();
+})
+
+/*$(() => {
   $.ajax({
     method: "GET",
     url: "/api/users"
@@ -8,3 +14,4 @@ $(() => {
     }
   });;
 });
+*/

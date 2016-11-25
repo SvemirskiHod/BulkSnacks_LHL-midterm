@@ -8,12 +8,20 @@ const express     = require('express');
 const bodyParser  = require('body-parser');
 const sass        = require('node-sass');
 const app         = express();
+const session     = require('cookie-session');
 
 const knexConfig  = require('./knexfile');
 const knex        = require('knex')(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 const fs          = require('fs');
+
+
+app.use(session({
+  name: "session",
+  keys: ["Hg8mCTKao7", "lhHJBeTM1X", "zLCrHUM3So"],
+  maxAge: 24 * 60 * 60 * 1000,
+}));
 
 // Seperated Routes for each Resource
 const usersRoutes = require('./routes/users');
@@ -53,12 +61,50 @@ app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
 // Mount all resource routes
 app.use('/api/users', usersRoutes(knex));
 
-// Home page
+
+/*
+--- FUNCTIONS ---
+*/
+
+// retrieve user's real name from 'accounts' table in database
+const getUserName = (uid, cb) => {
+  console.log('in getUserName')
+   knex('accounts')
+    .select('name').where('userid', uid)
+    .then((result) => {
+      cb(result[0])
+    })
+    .catch((error) => {
+      if(error) throw error;
+    });
+};
+
+
+/*
+---  GET REQUEST HANDLERS ---
+*/
+
+// ---- home page ----
 app.get('/', (req, res) => {
-  res.render('index');
+  const uid = req.session.user_id;
+  // no session cookie? ...render index page
+  if (!uid) {
+    res.render('index');
+    return;
+  }
+  const username = getUserName(uid, (user) => {
+    // session cookie is valid? ...render index-auth
+    if (user) {
+      console.log(user.name);
+      res.render('index-auth', {name: user.name});
+    }
+    else {
+      res.render('index');
+    }
+  });
 });
 
-
+// ---- snacks list ----
 app.get("/snacks", (req,res) =>{
   let snacksList;
   knex
@@ -66,6 +112,7 @@ app.get("/snacks", (req,res) =>{
     .from('snacks')
     .then(function(result){
       snacksList = result;
+      // console.log(snacksList);
       //knex.destroy();
       res.render("snacks", {snacks: snacksList});
     })
@@ -74,7 +121,12 @@ app.get("/snacks", (req,res) =>{
       //knex.destroy();
     });
 });
+// ---- registration ----
+app.get('/register', (req, res) => {
+  res.render('register');
+});
 
+// ---- basket / checkout ----
 app.get("/basket", (req,res) =>{
   let snacksList;
   knex
