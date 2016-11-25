@@ -2,8 +2,6 @@
 <html lang="en">
   <head>
     <% include partials/_head%>
-    <% include partials/_scripts %>
-
   </head>
 
   <body>
@@ -11,6 +9,8 @@
     <div class="jumbotron">
       <div class="container">
         <% include partials/_header %>
+        <% include partials/_register_prompt %>
+
         <% if(array.length === 0){ %>
         <h1>Looks like there's nothing here!</h1>
         <a href="/snacks"><p>Click here to start adding some snacks to your basket.</p></a>
@@ -18,7 +18,7 @@
         <h2> Welcome to your basket </h2>
         <p>Have a look at the snacks you have already added.</p>
         <% }%>
-        <p class="registration">Register in seconds for free <a href="/register">here</a></p>
+
        <!--  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p> -->
       </div>
     </div>
@@ -50,7 +50,7 @@
         </section>
 
       <hr>
-
+    <% include partials/_scripts %>
     <% include partials/_footer %>
     </div> <!-- /container -->
 
