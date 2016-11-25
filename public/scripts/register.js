@@ -98,19 +98,28 @@ var validatePhoneNumber = function() {
 };
 
 var makeSubmitButtonActive = function() {
+  $submit.toggleClass('form-ready-btn');
+  $submit.toggleClass('form-incomplete');
   $submit.html('Register & sign in');
   $submit.prop({disabled: false});
 };
 
+var makeSubmitButtonInactive = function() {
+  $submit.toggleClass('form-incomplete');
+  $submit.html('Form incomplete');
+  $submit.prop({disabled: true});
+};
 
 var validateForm = function() {
   if (validateName() &&
-    validateEmail() &&
-    validatePhoneNumber() &&
-    validatePassword()) {
-    // if all above are 'true'
-
+      validateEmail() &&
+      validatePassword() &&
+      validatePhoneNumber()) {
+    // if all above are true
     makeSubmitButtonActive();
+  }
+  else {
+    makeSubmitButtonInactive();
   }
 };
 

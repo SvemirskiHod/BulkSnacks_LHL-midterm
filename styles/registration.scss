@@ -1,0 +1,14 @@
+.form-ready-btn {
+  box-shadow: 1px 1px 2px gray;
+  font-weight: 700;
+}
+.form-ready-btn:hover {
+  box-shadow: 3px 3px 6px black;
+  font-weight: 700;
+}
+
+.form-incomplete, .form-incomplete:hover {
+  background-color: gray;
+  color: white;
+  border-color: gray;
+}
