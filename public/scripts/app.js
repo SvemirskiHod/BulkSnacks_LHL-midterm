@@ -1,8 +1,15 @@
 
 $(document).ready(function() {
 
-  // checkCookie();
-})
+  $("#basket-link").on("click", function(event){
+    event.preventDefault();
+    if(localStorage.getItem('cart') === null){
+      localStorage.setItem('cart', "{}");
+    }
+    window.location.href = "/basket?" + $.param(JSON.parse(localStorage.getItem('cart')));
+  });
+
+});
 
 /*$(() => {
   $.ajax({

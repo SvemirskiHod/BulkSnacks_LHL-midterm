@@ -1,7 +1,7 @@
 $(document).ready(function() {
   console.log( "ready!" );
 
-  let cart = {};
+  let cart = JSON.parse(localStorage.getItem('cart') || "{}");
 
   $(".add_item_button").click(function(event){
     let id = $(this).data("productid");

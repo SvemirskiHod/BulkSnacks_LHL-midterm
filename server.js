@@ -85,18 +85,26 @@ app.get('/register', (req, res) => {
 
 // ---- basket / checkout ----
 app.get("/basket", (req,res) =>{
-  let snacksList;
+  console.log(req.query);
+  let idArray = [];
+  let idStringArray = idArray;
+    for(var key in req.query){
+      idArray.push(key);
+    }
+  idArray = idArray.map(Number);
+  console.log(idArray);
+
   knex
-  .select()
-  .from('snacks')
-  .then(function(result){
-    snacksList = result;
-    res.render("basket", {snacks: snacksList});
-  })
-  .catch(function(err){
-    console.log(err);
-    //knex.destroy();
-  });
+    .select()
+    .from('snacks')
+    .whereIn('id', idArray)
+    .then(function(result){
+      helpers.passParamsForRender(req, res, 'basket', {snacks: result, array: idStringArray, obj: req.query});
+      // res.render("basket", {snacks: result, array: idStringArray, obj: req.query});
+    })
+    .catch(function(err){
+      console.log(err);
+    });
 });
 
 
