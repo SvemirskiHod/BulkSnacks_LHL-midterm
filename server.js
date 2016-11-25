@@ -61,27 +61,12 @@ app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
 // Mount all resource routes
 app.use('/api/users', usersRoutes(knex));
 
-// Home page
-app.get('/', (req, res) => {
-  const uid = req.session.user_id;
-  // if no session cookie, render index page
-  if (!uid) {
-    res.render('index');
-    return;
-  }
-  const username = getUserName(uid, (user) => {
-    // ... if session cookie is valid, render index-auth
-    if (user) {
-      console.log(user.name);
-      res.render('index-auth', {name: user.name});
-    }
-    else {
-      res.render('index');
-    }
-  });
-});
 
+/*
+--- FUNCTIONS ---
+*/
 
+// retrieve user's real name from 'accounts' table in database
 const getUserName = (uid, cb) => {
   console.log('in getUserName')
    knex('accounts')
@@ -94,13 +79,32 @@ const getUserName = (uid, cb) => {
     });
 };
 
-// works...
+
 /*
-getUserName(1, (user) => {
-  console.log(user.name)
-});
+---  GET REQUEST HANDLERS ---
 */
 
+// ---- home page ----
+app.get('/', (req, res) => {
+  const uid = req.session.user_id;
+  // no session cookie? ...render index page
+  if (!uid) {
+    res.render('index');
+    return;
+  }
+  const username = getUserName(uid, (user) => {
+    // session cookie is valid? ...render index-auth
+    if (user) {
+      console.log(user.name);
+      res.render('index-auth', {name: user.name});
+    }
+    else {
+      res.render('index');
+    }
+  });
+});
+
+// ---- snacks list ----
 app.get("/snacks", (req,res) =>{
   var snacksList;
   knex
@@ -117,7 +121,12 @@ app.get("/snacks", (req,res) =>{
       //knex.destroy();
     });
 });
+// ---- registration ----
+app.get('/register', (req, res) => {
+  res.render('register');
+});
 
+// ---- basket / checkout ----
 app.get("/basket", (req,res) =>{
   res.render("basket");
 });

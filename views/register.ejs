@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include partials/_head%>
+  </head>
+
+  <body>
+    <% include partials/_nav_minimal %>
+    <div class="jumbotron">
+      <div class="container">
+        <% include partials/_header %>
+        <p>You're seconds away from easier snacking.</p>
+      </div>
+    </div>
+    <div class="container">
+      <div id="registration-form" class="col-lg-8">
+        <form method="POST" action="/register">
+          <div class="form-group">
+            <p>First and last name</p>
+            <input type="text" placeholder="Johnny McSmith" name="name" class="form-control" autofocus>
+          </div>
+          <div class="form-group">
+            <p>Email address</p>
+            <input type="email" placeholder="email" name="email" class="form-control">
+          </div>
+          <div class="form-group">
+            <p>Phone number (so we can text you when your order is ready)</p>
+            <input type="tel" placeholder="555-444-3322" name="phone" class="form-control">
+          </div>
+          <div class="form-group">
+            <p>Make a password</p>
+            <input type="password" placeholder="password (don't actually use 'password')" name="password-a" class="form-control">
+          </div>
+          <div class="form-group">
+            <p>confirm your password</p>
+            <input type="password" placeholder="password (don't actually use 'password')" name="password-b" class="form-control">
+          </div>
+          <button type="submit" class="btn btn-success">Register & sign in</button>
+        </form>
+      </div>
+    </div>
+
+
+
+
+    </div> <!-- /container -->
+
+    <% include partials/_scripts %>
+
+  </body>
+</html>
