@@ -26,6 +26,15 @@ var checkoutButtonToggle = function() {
 }
 
 
+var updateTotal = function(){
+  var total = 0;
+  var arrayOfTotals = $(".product-total");
+  for (var i=0; i<arrayOfTotals.length; i++){
+    total += Number(arrayOfTotals[i].innerHTML);
+  }
+  $("#total").text(total.toFixed(2));
+}
+
 var updateQuantity = function(input, currentVal, $min, n) {
   var itemCount = Number(currentVal)
 
