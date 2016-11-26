@@ -88,7 +88,6 @@ module.exports = (knex) => {
           });
         }
       })
-
       .catch((error) => {
         if(error) console.error(error);
       })
