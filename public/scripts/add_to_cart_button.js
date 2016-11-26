@@ -1,20 +1,18 @@
 $(document).ready(function() {
   console.log( "ready!" );
 
-  let cart = JSON.parse(localStorage.getItem('cart') || "{}");
+  let basket = JSON.parse(localStorage.getItem('basket') || "{}");
 
   $(".add_item_button").click(function(event){
     let id = $(this).data("productid");
-    if(cart[id]){
-      cart[id] += 1;
+    if(basket[id]){
+      basket[id] += 1;
     }
     else {
-      cart[id] = 1;
+      basket[id] = 1;
     }
-    console.log(cart);
-    localStorage.setItem('cart', JSON.stringify(cart));
-
- });
-
+    console.log(basket);
+    localStorage.setItem('basket', JSON.stringify(basket));
+  });
 });
 
