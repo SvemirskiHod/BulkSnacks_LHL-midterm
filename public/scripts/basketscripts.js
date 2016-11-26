@@ -8,7 +8,6 @@ var basketSubmit = function() {
         method: 'PUT',
         basket: $basket
       }).done(function() {
-        console.log($(this))
       })
   });
 }

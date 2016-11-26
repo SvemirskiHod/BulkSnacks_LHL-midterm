@@ -1,5 +1,4 @@
 $(document).ready(function() {
-  console.log( "ready!" );
 
   let basket = JSON.parse(localStorage.getItem('basket') || "{}");
 
@@ -11,7 +10,6 @@ $(document).ready(function() {
     else {
       basket[id] = 1;
     }
-    console.log(basket);
     localStorage.setItem('basket', JSON.stringify(basket));
   });
 });
