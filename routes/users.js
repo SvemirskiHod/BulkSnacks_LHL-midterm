@@ -14,28 +14,40 @@ const passwordsMatch = (account, attemptedPassword) => {
 const createHashedPassword = (password) => {
   return bcrypt.hashSync(password, 10);
 };
-// doesEmailExist
 
-
-
+/*
+== == == USER-RELATED endpoints
+== == == prefixed with /api/users
+*/
 module.exports = (knex) => {
 
+  // -- LOGIN --
+
   app.post('/login', (req, res) => {
-    const email    = req.body.email;
+    // correct uppercase email entry
+    const email    = req.body.email.toLowerCase();
     const password = req.body.password;
 
     knex('accounts')
       .select('*').where('email', email)
       .then((account) => {
-        if (account.length === 0) {
-          helpers.passParamsForRender(req, res, 'index', {errors: {baduser: true}});
-          return;
+        // -- email doesn't exist in 'accounts' table --
+        if (!account[0]) {
+          helpers.passParamsForRender(req, res, 'index', {
+            errors: {baduser: true}
+          });
         }
-        else if (passwordsMatch(account[0], password) === false) {
-          helpers.passParamsForRender(req, res, 'index', {errors: {badpass: true}});
+        // -- password mismatch --
+        else if (!passwordsMatch(account[0], password)) {
+          helpers.passParamsForRender(req, res, 'index', {
+            errors: {badpass: true}
+          });
         }
         else {
-          helpers.passParamsForRender(req, res, 'index', {});
+          const currentPage = req.get('referer').slice(21);
+          req.session.user_id = account[0].userid;
+          res.redirect(currentPage);
+          // helpers.passParamsForRender(req, res, 'index', {});
         }
       })
       .catch((error) => {
@@ -43,9 +55,12 @@ module.exports = (knex) => {
       })
   });
 
+  // -- REGISTER --
+
   app.post('/register', (req, res) => {
-    const email    = req.body.email;
-    const hash = createHashedPassword(req.body.password);
+    const email = req.body.email;
+    const hash  = createHashedPassword(req.body.password);
+    // console.log(hash);
     const newUser  = {
       name: req.body.name,
       email: email,
@@ -55,37 +70,31 @@ module.exports = (knex) => {
     knex('accounts')
       .select('*').where('email', email)
       .then((existingAccount) => {
-        if (existingAccount.length === 0) {
+        if (!existingAccount[0]) {
           knex('accounts')
             .returning('userid')
             .insert([newUser])
             .then((resp) => {
               const userId = resp[0];
               req.session.user_id = userId;
-              res.redirect('/');
-
+              res.redirect('/snacks');
             })
         }
         else {
-          res.render('register_uname_taken');
+          helpers.passParamsForRender(req, res, 'register', {
+            errors: {usertaken: true}
+          });
         }
       })
 
       .catch((error) => {
         if(error) console.error(error);
       })
-
   });
 
   app.post('/logout', (req, res) => {
       req.session = null;
       res.redirect('/');
-  });
-
-  // example below - we can add more routes to the exports
-  // ** keep it related to 'users' for this module! **
-  app.get('/test', (req, res) => {
-    res.send('It works!');
   });
 
   return app;

@@ -28,7 +28,7 @@ var validateName = function() {
     return false;
   }
   else {
-    $warning.empty();
+    $warning.html('<br>');
     return true;
   }
 
@@ -55,7 +55,7 @@ var validatePassword = function() {
     return false;
   }
   else {
-    $warning.empty();
+    $warning.html('<br>');
     return true;
   }
 };
@@ -68,7 +68,7 @@ var validateEmail = function() {
     return false;
   }
   else {
-    $warning.empty();
+    $warning.html('<br>');
     return true;
   }
 }
@@ -84,24 +84,24 @@ var validatePhoneNumber = function() {
     return false;
   }
   // if incorrectly formatted...
-  else if ($phone.val().length < 12) {
+  else if ($phone.val().length < 10) {
    $warning.html(`
       <h4>Please enter your phone number like this:</h4>
-      <h4>333-222-1111</h4>
+      <h4>3331115555 (no extra characters)</h4>
     `);
     return false;
 
   }
-  else if ($phone.val().length > 12) {
+  else if ($phone.val().length > 10) {
    $warning.html(`
       <h4>Your phone number is too long...</h4>
       <h4>Please enter your phone number like this:</h4>
-      <h4>333-222-1111</h4>
+      <h4>3331115555 (no extra characters)</h4>
     `);
     return false;
   }
   else {
-    $warning.empty();
+    $warning.html('<br>');
     return true;
   }
 };
@@ -134,7 +134,7 @@ var validateForm = function() {
 
 $(document).ready(function() {
 
-  $warning.empty();
+  $warning.html('<br>');
   $('#register-submit').prop({disabled: true});
 
   $name.blur(function() {

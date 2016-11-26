@@ -31,12 +31,10 @@ module.exports = {
       getUserName(uid, (user) => {
         // add name to render params
         params.name = user.name;
-        console.log(params)
         res.render(page, params);
       });
     }
     else {
-        console.log(params)
       res.render(page, params);
     }
   },

@@ -12,6 +12,17 @@
         <p>You're seconds away from easier snacking.</p>
       </div>
     </div>
+
+    <% if (errors.usertaken) { %>
+    <div class='user-error'>
+      <hr>
+      <h4>Sorry, your email has already been registered</h4>
+      <h5>To login, please use the form at the top</h5>
+      <h5>... or try your registration again below</h5>
+      <hr>
+    </div>
+    <% }; %>
+
     <% include partials/_reg_form %>
 
     <% include partials/_scripts %>
