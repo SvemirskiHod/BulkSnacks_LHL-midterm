@@ -17,6 +17,8 @@ const createHashedPassword = (password) => {
 
 module.exports = (knex) => {
 
+  // -- LOGIN --
+
   app.post('/login', (req, res) => {
     const email    = req.body.email;
     const password = req.body.password;
@@ -25,13 +27,17 @@ module.exports = (knex) => {
       .select('*').where('email', email)
       .then((account) => {
         // -- email doesn't exist in 'accounts' table --
-        if (account.length === 0) {
-          helpers.passParamsForRender(req, res, 'index', {errors: {baduser: true}}).bind();
+        if (!account[0]) {
+          helpers.passParamsForRender(req, res, 'index', {
+            errors: {baduser: true}
+          });
           return;
         }
         // -- password mismatch --
-        else if (passwordsMatch(account[0], password) === false) {
-          helpers.passParamsForRender(req, res, 'index', {errors: {badpass: true}});
+        else if (!passwordsMatch(account[0], password)) {
+          helpers.passParamsForRender(req, res, 'index', {
+            errors: {badpass: true}
+          });
         }
         else {
           req.session.user_id = account[0].userid;
@@ -42,6 +48,8 @@ module.exports = (knex) => {
         console.error(error);
       })
   });
+
+  // -- REGISTER --
 
   app.post('/register', (req, res) => {
     const email    = req.body.email;
@@ -56,18 +64,20 @@ module.exports = (knex) => {
     knex('accounts')
       .select('*').where('email', email)
       .then((existingAccount) => {
-        if (existingAccount.length === 0) {
+        if (!existingAccount[0]) {
           knex('accounts')
             .returning('userid')
             .insert([newUser])
             .then((resp) => {
               const userId = resp[0];
               req.session.user_id = userId;
-              res.redirect('/');
+              res.redirect('/snacks');
             })
         }
         else {
-          res.render('register_uname_taken');
+          helpers.passParamsForRender(req, res, 'register', {
+            errors: {usertaken: true}
+          });
         }
       })
 

@@ -28,7 +28,7 @@ var validateName = function() {
     return false;
   }
   else {
-    $warning.empty();
+    $warning.html('<br>');
     return true;
   }
 
@@ -55,7 +55,7 @@ var validatePassword = function() {
     return false;
   }
   else {
-    $warning.empty();
+    $warning.html('<br>');
     return true;
   }
 };
@@ -68,7 +68,7 @@ var validateEmail = function() {
     return false;
   }
   else {
-    $warning.empty();
+    $warning.html('<br>');
     return true;
   }
 }
@@ -101,7 +101,7 @@ var validatePhoneNumber = function() {
     return false;
   }
   else {
-    $warning.empty();
+    $warning.html('<br>');
     return true;
   }
 };
@@ -134,7 +134,7 @@ var validateForm = function() {
 
 $(document).ready(function() {
 
-  $warning.empty();
+  $warning.html('<br>');
   $('#register-submit').prop({disabled: true});
 
   $name.blur(function() {

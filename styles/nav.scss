@@ -12,15 +12,19 @@ img#main-basket {
   background-color: #F4D95D
 }
 //- Header Logo -//
- .navbar-header > a.navbar-brand {
-  color: #FC292A;
-  font-size: 2.2em;
-  font-weight: 900;
-  text-shadow: 0.8px 0.8px 2px black;
-}
-
+ .navbar-header {
+  a.navbar-brand {
+    color: #FC292A;
+    font-size: 2.2em;
+    font-weight: 900;
+    text-shadow: 0.8px 0.8px 2px black;
+  }
+ }
 button.btn.btn-success {
   background-color: white;
   border-color: gray;
   color: black;
+}
+button.navbar-toggle.collapsed {
+  background-color: #FC292A;
 }

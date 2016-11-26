@@ -34,16 +34,17 @@ app.use(morgan('dev'));
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
-
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
-
+// share publice directory as / for web app
+app.use(express.static('public'));
+// render all scss files to /public/styles/style.css
 sass.render({
   file: './styles/style.scss',
   outputStyle: 'compressed',
 }, (err, data) => {
   if(!err) {
-    fs.writeFile('./public//styles/style.css', data.css, (err) => {
+    fs.writeFile('./public/styles/style.css', data.css, (err) => {
       if(!err) {
         console.log('Successfully compiled SCSS');
       } else console.log(err);
@@ -51,13 +52,17 @@ sass.render({
   } else console.log(err);
 });
 
-app.use(express.static('public'));
+
+/*
+--- Bootstrap stuff ---
+*/
 // redirect CSS bootstrap
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 // redirect bootstrap JS
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 // redirect JS jQuery
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
+
 
 // Mount all resource routes
 app.use('/api/users', usersRoutes(knex));
@@ -103,7 +108,6 @@ app.get("/basket", (req,res) =>{
     .whereIn('id', idArray)
     .then(function(result){
       helpers.passParamsForRender(req, res, 'basket', {snacks: result, array: idStringArray, obj: req.query});
-      // res.render("basket", {snacks: result, array: idStringArray, obj: req.query});
     })
     .catch(function(err){
       console.log(err);

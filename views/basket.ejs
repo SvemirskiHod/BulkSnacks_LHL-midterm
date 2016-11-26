@@ -8,16 +8,22 @@
     <% include partials/_nav %>
     <div class="jumbotron">
       <div class="container">
-        <% include partials/_header %>
-        <% include partials/_register_prompt %>
-
         <% if(array.length === 0){ %>
-        <h1>Looks like there's nothing here!</h1>
-        <a href="/snacks"><p>Click here to start adding some snacks to your basket.</p></a>
-        <% } else{ %>
+        <h2>Looks like there's nothing here!</h2>
+        <a href="/snacks">
+          <p>An empty basket is a sad basket.
+            <br>Click here to start adding some snacks to your basket.
+            <br><br>
+          </p>
+        </a>
+        <% } else { %>
         <h2> Welcome to your basket </h2>
-        <p>Have a look at the snacks you have already added.</p>
+        <p>
+          Have a look at the snacks you have already added.
+          <br><br><br>
+        </p>
         <% }%>
+        <% include partials/_register_prompt %>
 
        <!--  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p> -->
       </div>
