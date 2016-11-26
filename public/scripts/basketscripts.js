@@ -1,19 +1,16 @@
-
 $(document).ready(function() {
 
-   console.log("hello world");
-
   $(".add-quantity").on("click", function(event){
+    debugger;
     let input = $(this).siblings().find("input");
     let currentVal = input.val();
     currentVal = Number(currentVal) +1;
     input.val(currentVal);
 
     let id = Number((input.attr("id")));
-    cart = JSON.parse(localStorage.getItem('cart'));
-    cart[id] = currentVal;
-    localStorage.setItem('cart', JSON.stringify(cart));
-
+    basket = JSON.parse(localStorage.getItem('basket'));
+    basket[id] = currentVal;
+    localStorage.setItem('basket', JSON.stringify(basket));
 
   });
 
@@ -27,9 +24,9 @@ $(document).ready(function() {
       input.val(currentVal);
     }
     let id = Number((input.attr("id")));
-    cart = JSON.parse(localStorage.getItem('cart'));
-    cart[id] = currentVal;
-    localStorage.setItem('cart', JSON.stringify(cart));
+    basket = JSON.parse(localStorage.getItem('basket'));
+    basket[id] = currentVal;
+    localStorage.setItem('basket', JSON.stringify(basket));
 
   });
 

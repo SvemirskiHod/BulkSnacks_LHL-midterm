@@ -31,29 +31,46 @@
 
     <div class="container">
       <!-- Example row of columns -->
+      <h1>
+            Total:
+      </h1>
       <div class="row">
-
+      <!-- Bgin product template -->
      <section class="products">
-        <% snacks.forEach(function(elm, counter){ %>
+        <% snacks.forEach(function(snackInBasket, counter){ %>
           <div class="product-card">
             <div class="product-image">
-              <img src="snack_images/<%= elm['img-filename']%>" alt="picture">
+              <img src="snack_images/<%= snackInBasket['img-filename']%>" alt="picture">
             </div>
             <div class="product-info">
-              <h5> <%= elm.name%> </h5>
+              <h4> <%= snackInBasket.name%> </h4>
               <h6>
-                Quantity:
-                <input id="<%=elm.id%>" type="number"
+                100g scoops:
+                <input id="<%=snackInBasket.id%>" type="number"
                        value="<%= Number(obj[array[counter]]) %>" class="qty"
-                       min="1"/>
+                       min="1" readonly/><br>
+              <button  class="add-quantity"> + </button>
+              <button  class="reduce-quantity"> - </button>
               </h6>
-
-              <button  class="add-quantity"> Add Quantity</button>
-              <button  class="reduce-quantity"> Reduce Quantity</button>
+              <h6>Price per scoop:
+                <span class="price">$<%= snackInBasket["price-per-100g"]/100 %> </span>
+              </h6>
+              <h6>Item total:
+               <span class="product-total">
+                  $<%= Number(obj[array[counter]])*snackInBasket["price-per-100g"]/100 %>
+               </span>
+              </h6>
             </div>
           </div>
             <% }) %>
         </section>
+        <!-- End product template -->
+        <div>
+          <!-- <h3>
+            Sub-Total:
+          </h3> -->
+
+        </div>
 
       <hr>
     <% include partials/_scripts %>
