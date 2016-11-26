@@ -23,12 +23,22 @@ div.jumbotron {
   color: white;
   text-shadow: 1px 1px 7px black;
 }
+.block-1 {
+  background-image: url('/images/jubejubes-lg.jpg');
+}
+
+.block-2 {
+  background-image: url('/images/almonds-lg.jpg');
+}
+
 div.col-md-6 {
+  transition: all 0.2s ease;
   height: 260px;
   border: 20px solid transparent;
-  :hover {
-    background-image: solid #FC292A;
-  }
+}
+div.col-md-6:hover {
+  transition: all 0.2s ease;
+  border: 10px solid transparent;
 }
 @media screen and (max-width: 991px) {
   div.col-md-6 {
@@ -62,11 +72,4 @@ strong a {
 
 p.footer {
   font-size: 100%;
-}
-.block-1 {
-  background-image: url('/images/jubejubes-lg.jpg');
-}
-
-.block-2 {
-  background-image: url('/images/almonds-lg.jpg');
 }
