@@ -14,6 +14,7 @@ const fs          = require('fs');
 const knexConfig  = require('./knexfile');
 const knex        = require('knex')(knexConfig[ENV]);
 const helpers     = require('./server/helper-functions');
+const newSMS      = require('./server/twilio').newSMS;
 const app         = express();
 
 app.use(session({
@@ -22,8 +23,10 @@ app.use(session({
   maxAge: 24 * 60 * 60 * 1000,
 }));
 
+
 // Seperated Routes for each Resource
 const usersRoutes = require('./routes/users');
+
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
