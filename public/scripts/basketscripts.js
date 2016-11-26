@@ -1,9 +1,7 @@
-
 $(document).ready(function() {
 
-   console.log("hello world");
-
   $(".add-quantity").on("click", function(event){
+    debugger;
     let input = $(this).siblings().find("input");
     let currentVal = input.val();
     currentVal = Number(currentVal) +1;
@@ -13,7 +11,6 @@ $(document).ready(function() {
     cart = JSON.parse(localStorage.getItem('cart'));
     cart[id] = currentVal;
     localStorage.setItem('cart', JSON.stringify(cart));
-
 
   });
 

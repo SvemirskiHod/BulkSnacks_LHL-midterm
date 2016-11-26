@@ -3,7 +3,7 @@
   <head>
     <% include partials/_head%>
     <% include partials/_scripts %>
-
+    <% %>
   </head>
 
   <body>
@@ -26,7 +26,7 @@
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
-
+      <!-- Bgin product template -->
      <section class="products">
         <% snacks.forEach(function(elm, counter){ %>
           <div class="product-card">
@@ -34,23 +34,37 @@
               <img src="snack_images/<%= elm['img-filename']%>" alt="picture">
             </div>
             <div class="product-info">
-              <h5> <%= elm.name%> </h5>
+              <h4> <%= elm.name%> </h4>
               <h6>
                 Quantity:
                 <input id="<%=elm.id%>" type="number"
                        value="<%= Number(obj[array[counter]]) %>" class="qty"
                        min="1"/>
               </h6>
-
+              <h6>Price per 100 grams:
+                <span class="price">$<%= elm["price-per-100g"]/100 %> </span>
+              </h6>
+              <h6>Total: $
+               <span class="product-total">
+                  <%=Number(obj[array[counter]])*elm["price-per-100g"]/100 %>
+               </span>
+              </h6>
               <button  class="add-quantity"> Add Quantity</button>
               <button  class="reduce-quantity"> Reduce Quantity</button>
             </div>
           </div>
             <% }) %>
         </section>
+        <!-- End product template -->
+        <div>
+          <h3>
+            Sub-Total:
+          </h3>
+          <h2>
+            Total:
+          </h2>
 
-      <hr>
-
+        </div>
     <% include partials/_footer %>
     </div> <!-- /container -->
 
