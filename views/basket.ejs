@@ -1,84 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <% include partials/_head%>
-  </head>
+<head>
+  <% include partials/_head%>
+</head>
 
-  <body>
-    <% include partials/_nav %>
-    <div class="jumbotron">
-      <div class="container">
-        <% if(array.length === 0){ %>
-        <h2>Looks like there's nothing here!</h2>
-        <a href="/snacks">
-          <p>An empty basket is a sad basket.
-            <br>Click here to start adding some snacks to your basket.
-            <br><br>
-          </p>
-        </a>
-        <% } else { %>
-        <h2> Welcome to your basket </h2>
-        <p>
-          Have a look at the snacks you have already added.
-          <br><br><br>
-        </p>
-        <% }%>
-        <% include partials/_register_prompt %>
-
-       <!--  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p> -->
-      </div>
-    </div>
-
+<body>
+  <% include partials/_nav %>
+  <div class="jumbotron">
     <div class="container">
-      <!-- Example row of columns -->
-      <h1>
-            Total:
-      </h1>
-      <div class="row">
+      <% if(array.length === 0){ %>
+      <h2>Looks like there's nothing here!</h2>
+      <a href="/snacks">
+        <p>An empty basket is a sad basket.
+          <br>Click here to start adding some snacks to your basket.
+          <br><br>
+        </p>
+      </a>
+      <% } else { %>
+      <h2> Welcome to your basket </h2>
+      <p>
+        Have a look at the snacks you have already added.
+        <br><br><br>
+      </p>
+      <% }%>
+      <% include partials/_register_prompt %>
+
+      <!--  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p> -->
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Example row of columns -->
+    <h2>
+      Basket Total: $
+        <span id="total"></span>
+    </h2>
+    <div class="row">
       <!-- Bgin product template -->
-     <section class="products">
+      <section class="products">
         <% snacks.forEach(function(snackInBasket, counter){ %>
-          <div class="product-card">
-            <div class="product-image">
-              <img src="snack_images/<%= snackInBasket['img-filename']%>" alt="picture">
-            </div>
-            <div class="product-info">
-              <h4> <%= snackInBasket.name%> </h4>
-              <h6>
-                100g scoops:
-                <input id="<%=snackInBasket.id%>" type="number"
-                       value="<%= Number(obj[array[counter]]) %>" class="qty"
-                       min="1" readonly/><br>
+        <div class="product-card">
+          <div class="product-image">
+            <img src="snack_images/<%= snackInBasket['img-filename']%>" alt="picture">
+          </div>
+          <div class="product-info">
+            <h4> <%= snackInBasket.name%> </h4>
+            <h6>
+              100g scoops:
+              <input id="<%=snackInBasket.id%>" type="number"
+              value="<%= Number(obj[array[counter]]) %>" class="qty"
+              min="1" readonly/><br>
               <button  class="add-quantity"> + </button>
               <button  class="reduce-quantity"> - </button>
-              </h6>
-              <h6>Price per scoop:
-                <span class="price">$<%= snackInBasket["price-per-100g"]/100 %> </span>
-              </h6>
-              <h6>Item total:
-               <span class="product-total">
-                  $<%= Number(obj[array[counter]])*snackInBasket["price-per-100g"]/100 %>
-               </span>
-              </h6>
-            </div>
-          </div>
-            <% }) %>
-        </section>
-        <!-- End product template -->
-        <div>
+            </h6>
+            <h6>Price per scoop: $
+              <span class="price"><%= (snackInBasket["price-per-100g"]/100).toFixed(2) %> </span>
+            </h6>
+            <h6>Item total: $
+             <span class="product-total">
+              <%= (Number(obj[array[counter]])*snackInBasket["price-per-100g"]/100).toFixed(2) %>
+            </span>
+          </h6>
+        </div>
+      </div>
+      <% }) %>
+    </section>
+    <!-- End product template -->
+    <div>
           <!-- <h3>
             Sub-Total:
           </h3> -->
 
         </div>
 
-      <hr>
-    <% include partials/_scripts %>
-    <% include partials/_footer %>
-    </div> <!-- /container -->
+        <hr>
+        <% include partials/_scripts %>
+        <% include partials/_footer %>
+      </div> <!-- /container -->
 
 
 
-    <script src="scripts/basketscripts.js"></script>
-  </body>
-</html>
+      <script src="scripts/basketscripts.js"></script>
+    </body>
+    </html>

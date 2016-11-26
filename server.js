@@ -95,7 +95,7 @@ app.get('/register', (req, res) => {
 
 // ---- basket / checkout ----
 app.get("/basket", (req,res) =>{
-  console.log(req.query);
+  //console.log(req.query);
   let idArray = [];
   let idStringArray = idArray;
     for(var key in req.query){
