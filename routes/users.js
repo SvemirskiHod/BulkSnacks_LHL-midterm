@@ -11,17 +11,19 @@ const passwordsMatch = (account, attemptedPassword) => {
   return bcrypt.compareSync(attemptedPassword, account.password);
 };
 
+// create new hashed password
 const createHashedPassword = (password) => {
   return bcrypt.hashSync(password, 10);
 };
 
+
 /*
-== == == USER-RELATED endpoints
-== == == prefixed with /api/users
+== == USER-RELATED endpoints
+== == prefixed with /api/users
 */
 module.exports = (knex) => {
 
-  // -- LOGIN --
+  // -- LOGIN REQUEST --
 
   app.post('/login', (req, res) => {
     // correct uppercase email entry
@@ -55,7 +57,7 @@ module.exports = (knex) => {
       })
   });
 
-  // -- REGISTER --
+  // -- REGISTER REQUEST --
 
   app.post('/register', (req, res) => {
     const email = req.body.email;
@@ -91,6 +93,8 @@ module.exports = (knex) => {
         if(error) console.error(error);
       })
   });
+
+  // -- LOGOUT REQUEST --
 
   app.post('/logout', (req, res) => {
       req.session = null;
