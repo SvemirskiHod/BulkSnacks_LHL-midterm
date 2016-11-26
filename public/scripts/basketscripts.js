@@ -3,6 +3,7 @@ var basketSubmit = function() {
   $('#checkout-form').submit(function(event) {
       event.preventDefault();
       var $basket = localStorage.getItem('basket')
+      console.log($basket)
       $.ajax({
         url: '/api/orders/new',
         method: 'PUT',
@@ -18,7 +19,7 @@ var checkoutButtonToggle = function() {
   var $checkoutBtn = $('button.checkout-button')
   // if nothing in basket, don't display total or offer checkout
   if (localStorage.getItem('basket') === "{}") {
-    $('.container h2').html(`
+    $('.container.cart h2').html(`
       <h2><a href="/snacks">start scooping</a></h2>
       `);
     $checkoutBtn.hide();
