@@ -15,12 +15,17 @@ const createHashedPassword = (password) => {
   return bcrypt.hashSync(password, 10);
 };
 
+/*
+== == == USER-RELATED endpoints
+== == == prefixed with /api/users
+*/
 module.exports = (knex) => {
 
   // -- LOGIN --
 
   app.post('/login', (req, res) => {
-    const email    = req.body.email;
+    // correct uppercase email entry
+    const email    = req.body.email.toLowerCase();
     const password = req.body.password;
 
     knex('accounts')
@@ -31,7 +36,6 @@ module.exports = (knex) => {
           helpers.passParamsForRender(req, res, 'index', {
             errors: {baduser: true}
           });
-          return;
         }
         // -- password mismatch --
         else if (!passwordsMatch(account[0], password)) {
@@ -54,8 +58,8 @@ module.exports = (knex) => {
   // -- REGISTER --
 
   app.post('/register', (req, res) => {
-    const email    = req.body.email;
-    const hash = createHashedPassword(req.body.password);
+    const email = req.body.email;
+    const hash  = createHashedPassword(req.body.password);
     // console.log(hash);
     const newUser  = {
       name: req.body.name,
