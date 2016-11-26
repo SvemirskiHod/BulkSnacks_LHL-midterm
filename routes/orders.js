@@ -17,13 +17,13 @@ const buildOrder = (basket) => {
 }
 
 /*
-== == == ORDER-RELATED endpoints
-== == == prefixed with /api/orders
+== == ORDER-RELATED endpoints
+== == prefixed with /api/orders
 */
 module.exports = (knex) => {
 
   // -- NEW ORDER PLACED --
-  app.put('/orders/new', (req, res) => {
+  app.put('/new', (req, res) => {
     const userid   = req.session.user_id;
     // basket passed from localStorage via form submission
     let orderItems = buildOrder(req.body.basket);
@@ -48,7 +48,7 @@ module.exports = (knex) => {
       .catch((error) => {
         console.error(error);
       })
-  }),
+  })
 
   return app;
 }
