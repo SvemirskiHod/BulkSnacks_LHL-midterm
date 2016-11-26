@@ -9,7 +9,7 @@
     <div class="jumbotron">
       <div class="container">
         <% if(array.length === 0){ %>
-        <h2>Looks like there's nothing here!</h2>
+        <h2>looks like there's nothing here</h2>
         <a href="/snacks">
           <p>An empty basket is a sad basket.
             <br>Click here to start adding some snacks to your basket.
@@ -23,6 +23,7 @@
           <br><br><br>
         </p>
         <% }%>
+
         <% include partials/_register_prompt %>
 
        <!--  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p> -->
@@ -34,6 +35,7 @@
       <h1>
             Total:
       </h1>
+      <% include partials/_checkout %>
       <div class="row">
       <!-- Bgin product template -->
      <section class="products">

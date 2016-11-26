@@ -4,15 +4,25 @@ const express = require('express');
 const app     = express.Router();
 const helpers = require('../server/helper-functions');
 
-// build order array from basket (provided as array from basket form)
+// build order array from basket
+// ... provided from basket form as object
+
+/*
+basket example {
+  '21': 2,
+  '22': 4
+}
+... where keys represent snackid and value is quantity in basket
+*/
 const buildOrder = (basket) => {
   let lineItems = [];
-  basket.forEach((basketItem) => {
+  for(var key in basket) {
     lineItems.push({
-      snackid: basketItem.snackid,
-      quantity: basketItem.quantity
+      snackid: key,
+      quantity: basket[key]
     });
-  });
+  };
+  console.log(lineItems)
   return lineItems;
 }
 
@@ -24,9 +34,9 @@ module.exports = (knex) => {
 
   // -- NEW ORDER PLACED --
   app.put('/new', (req, res) => {
-    const userid   = req.session.user_id;
     // basket passed from localStorage via form submission
-    let orderItems = buildOrder(req.body.basket);
+    let lineItems = buildOrder(req.body.basket);
+    const userid  = req.session.user_id;
 
     knex('orders')
       .returning('orderid')
@@ -36,8 +46,8 @@ module.exports = (knex) => {
         console.log('****** resp ******',resp)
         knex('order_snacks')
         // should log array of line-item objects
-        console.log('****** orderItems ******',orderItems)
-          .insert(orderItems)
+        console.log('****** lineItems ******',lineItems)
+          .insert(lineItems)
           .then(() => {
             helpers.passParamsForRender(req, res, 'order_placed', {})
           })
