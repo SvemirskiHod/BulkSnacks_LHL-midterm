@@ -46,6 +46,7 @@ module.exports = (knex) => {
   app.post('/register', (req, res) => {
     const email    = req.body.email;
     const hash = createHashedPassword(req.body.password);
+    console.log(hash);
     const newUser  = {
       name: req.body.name,
       email: email,
