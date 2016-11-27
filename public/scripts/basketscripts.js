@@ -1,19 +1,20 @@
 // send AJAX request with basket from localStorage
 var basketSubmit = function() {
   $('#checkout-form').submit(function(event) {
+      var $basket = [];
       event.preventDefault();
-      var $basket = localStorage.getItem('basket')
-      console.log($basket)
+      $basket.push(localStorage.getItem('basket'));
       $.ajax({
         url: '/api/orders/new',
-        method: 'PUT',
-        basket: $basket
-      }).done(function() {
-        console.log($(this))
-      })
+        method: 'POST',
+        data: {"basket":$basket},
+        success: function(data, textStatus) {
+          localStorage.clear();
+          window.location.href='/';
+        }
+      });
   });
 }
-
 // toggles visibility of order button based on login status
 var checkoutButtonToggle = function() {
   var $checkoutBtn = $('button.checkout-button')

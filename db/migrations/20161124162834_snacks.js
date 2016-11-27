@@ -8,7 +8,8 @@ exports.up = function(knex, Promise) {
       // price per 100g
       table.integer('price-per-100g');
       // image filename
-      table.string('img-filename')
+      table.string('img-filename');
+      table.integer('featured')
     })
   ])
 };
