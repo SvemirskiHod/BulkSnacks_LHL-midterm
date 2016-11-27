@@ -34,6 +34,7 @@
       <!-- Example row of columns -->
       <h2>Basket Total: $<span id="total"></span></h2>
       <% include partials/_checkout %>
+      <button class="empty-cart"> Empty Cart </button>
       <div class="row">
         <!-- Begin product template -->
         <section class="products">
@@ -51,6 +52,7 @@
                 min="1" readonly/><br>
                 <button  class="add-quantity"> + </button>
                 <button  class="reduce-quantity"> - </button>
+                <button  class="remove-item"> Remove Item </button>
               </h6>
               <h6>Price per scoop: $
                 <span class="price"><%= (snackInBasket["price-per-100g"]/100).toFixed(2) %> </span>
