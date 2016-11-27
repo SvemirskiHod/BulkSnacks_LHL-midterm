@@ -10,7 +10,7 @@ var basketSubmit = function() {
         data: {"basket":$basket},
         success: function(data, textStatus) {
           localStorage.clear();
-          window.location.href='/';
+          window.location.assign('api/orders/done');
         }
       });
   });
@@ -65,11 +65,12 @@ $(document).ready(function() {
     var input = $(this).siblings("input");
     var currentVal = input.val();
     var $min = input.attr("min")
-    if ($(this).attr('class') === "reduce-quantity"){
-      var n = -1;
+    var n;
+    if ($(this).hasClass("reduce-quantity")){
+      n = -1;
     }
     else {
-     var n = 1;
+      n = 1;
     }
     updateQuantity(input, currentVal, $min, n);
 

@@ -1,4 +1,11 @@
-div.product-card {
+div.container.cart {
+  button.btn-success.empty-cart, button.btn-success.checkout-button {
+    float: right;
+    margin: 10px;
+  }
+  a {
+    text-shadow: 0.8px 0.8px 2px black;
+  }
   img {
     height: 150px;
     width: 150px;

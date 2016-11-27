@@ -52,6 +52,9 @@ div.container a {
 .block-2 {
   background-image: url('/images/almonds-lg.jpg');
 }
+.block-3 {
+  background-image: url('/images/nuts-lg.jpg');
+}
 
 div.col-md-6 {
   transition: all 0.2s ease;
@@ -95,4 +98,9 @@ strong a {
 
 p.footer {
   font-size: 100%;
+}
+p.info-p {
+  margin-top: 20px;
+  color: black;
+  text-shadow: none;
 }
