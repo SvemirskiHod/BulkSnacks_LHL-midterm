@@ -1,27 +1,31 @@
 // send AJAX request with basket from localStorage
 var basketSubmit = function() {
   $('#checkout-form').submit(function(event) {
+      var $basket = [];
       event.preventDefault();
-      var $basket = localStorage.getItem('basket')
-      console.log($basket)
+      $basket.push(localStorage.getItem('basket'));
       $.ajax({
         url: '/api/orders/new',
-        method: 'PUT',
-        basket: $basket
-      }).done(function() {
-      })
+        method: 'POST',
+        data: {"basket":$basket},
+        success: function(data, textStatus) {
+          localStorage.clear();
+          window.location.href='/';
+        }
+      });
   });
 }
-
 // toggles visibility of order button based on login status
 var checkoutButtonToggle = function() {
   var $checkoutBtn = $('button.checkout-button')
+  var $emptyCartBtn = $('button.empty-cart')
   // if nothing in basket, don't display total or offer checkout
   if (localStorage.getItem('basket') === "{}") {
     $('.container.cart h2').html(`
       <h2><a href="/snacks">start scooping</a></h2>
       `);
     $checkoutBtn.hide();
+    $emptyCartBtn.hide();
   }
 }
 

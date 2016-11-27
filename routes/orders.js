@@ -1,28 +1,19 @@
 'use strict';
 
-const express = require('express');
-const app     = express.Router();
-const helpers = require('../server/helper-functions');
+const express    = require('express');
+const app        = express.Router();
+const helpers    = require('../server/helper-functions');
 
-// build order array from basket
-// ... provided from basket form as object
-
-/*
-basket example {
-  '21': 2,
-  '22': 4
-}
-... where keys represent snackid and value is quantity in basket
-*/
-const buildOrder = (basket) => {
+// build out lineItems for insertion by the POST call
+const buildOrder = (basket, orderid) => {
   let lineItems = [];
   for(var key in basket) {
     lineItems.push({
-      snackid: key,
-      quantity: basket[key]
+      'snackid': key,
+      'quantity': basket[key],
+      'orderid': orderid
     });
   };
-  console.log(lineItems)
   return lineItems;
 }
 
@@ -33,32 +24,36 @@ const buildOrder = (basket) => {
 module.exports = (knex) => {
 
   // -- NEW ORDER PLACED --
-  app.put('/new', (req, res) => {
-    // basket passed from localStorage via form submission
-    let lineItems = buildOrder(req.body.basket);
+  app.post('/new', (req, res) => {
+    const basket = JSON.parse(req.body.basket);
     const userid  = req.session.user_id;
 
     knex('orders')
       .returning('orderid')
       .insert({'userid': userid})
-      .then((resp) => {
-        // should log new orderid
-        console.log('****** resp ******',resp)
+      .then((orderid) => {
+        const lineItems = buildOrder(basket, orderid[0]);
+        console.log(lineItems)
         knex('order_snacks')
-        // should log array of line-item objects
-        console.log('****** lineItems ******',lineItems)
           .insert(lineItems)
           .then(() => {
-            helpers.passParamsForRender(req, res, 'order_placed', {})
+            return;
           })
           .catch((error) => {
             console.error(error);
           })
       })
+      .then(() => {
+        // send success response back to JQuery's ajax handler
+        res.send("successful insert");
+      })
       .catch((error) => {
         console.error(error);
       })
-  })
+  })/*,
+  app.get('/new', (req, res) => {
+
+  })*/
 
   return app;
 }
