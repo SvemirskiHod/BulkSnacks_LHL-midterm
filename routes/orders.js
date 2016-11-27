@@ -79,9 +79,54 @@ module.exports = (knex) => {
   // -- ORDER FINISHED --
   app.get('/done', (req, res) => {
     helpers.passParamsForRender(req, res, 'order_done', {})
-  })
+  }),
   app.get('/active', (req, res) => {
-    helpers.passParamsForRender(req, res, 'all_orders', {})
+    knex('orders')
+    .select().then((allOrders) => {
+      helpers.passParamsForRender(req, res, 'all_orders', {
+        allOrders: allOrders});
+    })
+  }),
+  app.get('/:id', (req, res) => {
+    const orderid = req.params.id;
+    let orderInfo = [];
+    knex('order_snacks')
+      .select('snackid', 'quantity')
+      .where('orderid', orderid)
+      .then((resp) => {
+        // resp will be array of resp[n].snackid, resp[n].quantity values
+        // build up array of snack info objects for render
+        resp.forEach((lineItem) => {
+          const quant = lineItem.quantity
+          knex('snacks')
+            .select('name', 'price-per-100g')
+            .where('id', lineItem.snackid)
+            .then((snackinfo) => {
+              console.log(snackinfo)
+              for(var snack in snackinfo[0]) {
+                orderInfo.push({
+                  'quantity': quant,
+                  'snackName': snackinfo[0].name,
+                  'snackPrice': snackinfo[0]['price-per-100g']
+                })
+              }
+            })
+            .catch((error) => {
+              console.error(error)
+            })
+        })
+
+      })
+      .then((resp) => {
+        console.log(resp)
+        // render per-order view, passing orderInfo array
+        // console.log(resp)
+        helpers.passParamsForRender(req, res, 'order_view', {
+          'orderInfo': orderInfo});
+      })
+      .catch((error) => {
+        console.error(error)
+      })
   })
 
   /*,

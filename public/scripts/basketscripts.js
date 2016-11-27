@@ -75,9 +75,9 @@ $(document).ready(function() {
     updateQuantity(input, currentVal, $min, n);
 
     var quantity = Number(input.val());
-    var price = Number($(this).parent().siblings().find('.price').text())
+    var price = Number($(this).siblings().find('.price').text())
     var productTotal = quantity*price;
-    $(this).parent().siblings().find('.product-total').text(productTotal.toFixed(2));
+    $(this).siblings().find('.product-total').text(productTotal.toFixed(2));
     updateTotal();
   });
 

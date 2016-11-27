@@ -49,9 +49,11 @@
               <tr>
                 <th>Order ID</th>
               </tr>
-              <% allOrders.forEach(function(order) { %>
-              <tr class="order-list">
-                <td><a href="/api/orders/<%= order.orderid %>"><%= order.orderid %></a></td>
+              <% orderInfo.forEach(function(lineItem) { %>
+              <tr class="">
+                <td><% lineItem.snackName %></td>
+                <td><% lineItem.snackPrice %></td>
+                <td><% lineItem.quantity %></td>
               </tr>
               <% }); %>
             </table>
