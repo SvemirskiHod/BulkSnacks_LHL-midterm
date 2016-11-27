@@ -79,4 +79,22 @@ $(document).ready(function() {
     updateTotal();
   });
 
+  $(".remove-item").on("click", function(event){
+    var id = Number(($(this).siblings("input").attr("id")));
+    basket = JSON.parse(localStorage.getItem('basket'));
+    delete basket[id];
+    localStorage.setItem('basket', JSON.stringify(basket));
+    //debugger;
+    $(this).closest(".product-card").remove();
+    updateTotal();
+  });
+
+  $(".empty-cart").on("click", function(event){
+
+      if(confirm("Are you sure you want to clear basket and go back to the snacks page?") === true){
+        localStorage.clear();
+        window.location.replace("/snacks");
+      }
+  });
+
 });
