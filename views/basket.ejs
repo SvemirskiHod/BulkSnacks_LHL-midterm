@@ -18,9 +18,9 @@
         </a>
         <% } else { %>
         <h2> Welcome to your basket </h2>
-        <p>
-          Have a look at the snacks you have already added.
-          <br><br><br>
+        <p>Have a look at the snacks you have already added.<br>
+          <a href="/snacks">Or add some more</a>
+          <br><br>
         </p>
         <% }%>
 
@@ -44,15 +44,13 @@
             </div>
             <div class="product-info">
               <h4> <%= snackInBasket.name%> </h4>
-              <h6>
-                100g scoops:
+              <h6>100g scoops:</h6>
                 <input id="<%=snackInBasket.id%>" type="number"
                 value="<%= Number(obj[array[counter]]) %>" class="qty"
                 min="1" readonly/><br>
-                <button  class="add-quantity"> + </button>
-                <button  class="reduce-quantity"> - </button>
-                <button  class="remove-item"> Remove Item </button>
-              </h6>
+                <button  class="btn btn-success add-quantity"> + </button>
+                <button  class="btn btn-success reduce-quantity"> - </button>
+                <button  class="btn btn-success remove-item"> Remove</button>
               <h6>Price per scoop: $
                 <span class="price"><%= (snackInBasket["price-per-100g"]/100).toFixed(2) %> </span>
               </h6>

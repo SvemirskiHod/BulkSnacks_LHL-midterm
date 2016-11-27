@@ -5,6 +5,13 @@ body {
     color: #244751;
   }
 }
+
+button.btn.btn-success {
+  font-weight: 700;
+}
+button.btn.btn-success:hover {
+  box-shadow: 1px 1px 3px black
+}
 div.row {
   margin-bottom: 20px;
 }
@@ -25,10 +32,10 @@ div.jumbotron {
 
 div.container a {
   text-decoration: none;
-  color: black;
+  color: #FC292A;
  }
 .jumbotron a:hover, div.container a:hover {
-  color: #FC292A;
+  color: white;
   text-shadow: 0.8px 0.8px 2px black;
 
 }
@@ -53,7 +60,7 @@ div.col-md-6 {
 }
 div.col-md-6:hover {
   transition: all 0.2s ease;
-  border: 10px solid transparent;
+  border: 15px solid transparent;
 }
 @media screen and (max-width: 991px) {
   div.col-md-6 {
@@ -75,7 +82,7 @@ p.registration {
   }
 
 }
-.registration a:hover {
+.jumbotron .registration a:hover {
   color: white;
 }
 strong a {

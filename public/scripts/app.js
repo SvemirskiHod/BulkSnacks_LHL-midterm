@@ -9,4 +9,13 @@ $(document).ready(function() {
     window.location.href = "/basket?" + $.param(JSON.parse(localStorage.getItem('basket')));
   });
 
+  $('button.add_item_button').click(function() {
+    $('#main-basket').css('-webkit-filter', 'brightness(2)');
+    $('#main-basket').css('border', '3px solid black');
+    setTimeout(function() {
+      $('#main-basket').css('-webkit-filter', 'brightness(1)')
+      $('#main-basket').css('border', 'none');
+    }, 600);
+  });
+
 });
