@@ -73,7 +73,6 @@ $(document).ready(function() {
     var price = Number($(this).parent().siblings().find('.price').text())
     var productTotal = quantity*price;
     $(this).parent().siblings().find('.product-total').text(productTotal.toFixed(2));
-
     updateTotal();
   });
 
@@ -83,15 +82,16 @@ $(document).ready(function() {
     delete basket[id];
     localStorage.setItem('basket', JSON.stringify(basket));
     //debugger;
-    $(this).closest(".product-card").remove();
+    $("#main-basket").click();
+    //$(this).closest(".product-card").remove();
     updateTotal();
   });
 
   $(".empty-cart").on("click", function(event){
 
-      if(confirm("Are you sure you want to clear basket and go back to the snacks page?") === true){
+      if(confirm("Are you sure you want to empty your basket?") === true){
         localStorage.clear();
-        window.location.replace("/snacks");
+        $("#main-basket").click();
       }
   });
 
