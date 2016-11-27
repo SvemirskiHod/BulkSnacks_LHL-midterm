@@ -17,6 +17,20 @@ div.jumbotron {
   padding-left: 20px;
   height: 270px;
   margin-bottom: 0px;
+  a {
+    text-decoration: none;
+    color: white;
+  }
+}
+
+div.container a {
+  text-decoration: none;
+  color: black;
+ }
+.jumbotron a:hover, div.container a:hover {
+  color: #FC292A;
+  text-shadow: 0.8px 0.8px 2px black;
+
 }
 .container p, .col-md-6 p{
   font-weight: 400;
