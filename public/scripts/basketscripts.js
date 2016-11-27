@@ -92,7 +92,6 @@ $(document).ready(function() {
   });
 
   $(".empty-cart").on("click", function(event){
-
       if(confirm("Are you sure you want to empty your basket?") === true){
         localStorage.clear();
         $("#main-basket").click();
