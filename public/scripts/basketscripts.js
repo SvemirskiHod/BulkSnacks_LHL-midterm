@@ -18,12 +18,14 @@ var basketSubmit = function() {
 // toggles visibility of order button based on login status
 var checkoutButtonToggle = function() {
   var $checkoutBtn = $('button.checkout-button')
+  var $emptyCartBtn = $('button.empty-cart')
   // if nothing in basket, don't display total or offer checkout
   if (localStorage.getItem('basket') === "{}") {
     $('.container.cart h2').html(`
       <h2><a href="/snacks">start scooping</a></h2>
       `);
     $checkoutBtn.hide();
+    $emptyCartBtn.hide();
   }
 }
 
