@@ -89,7 +89,6 @@ module.exports = (knex) => {
   }),
   app.get('/:id', (req, res) => {
     const orderid = req.params.id;
-    const orderInfo = [];
     knex.raw
       (`SELECT price, orders.orderid, accounts.name, phone, snacks.name, order_snacks.quantity
         FROM orders
@@ -99,8 +98,10 @@ module.exports = (knex) => {
         WHERE orders.orderid = ?`, [orderid])
       .then((resp) => {
         console.log(resp.rows)
-        for (lineItem in ){
-
+        const orderinfo = []
+        for (lineItem in resp.rows){
+          console.log('nn')
+          // orderInfo.push()
         }
         helpers.passParamsForRender(req, res, 'order_view', {'orderInfo': resp.rows});
       })
