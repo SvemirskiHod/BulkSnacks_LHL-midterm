@@ -90,13 +90,22 @@ module.exports = (knex) => {
   app.get('/:id', (req, res) => {
     const orderid = req.params.id;
     const orderInfo = [];
-    knex('order_snacks')
-      .join('')
+    knex.raw
+      (`SELECT price, orders.orderid, accounts.name, phone, snacks.name, order_snacks.quantity
+        FROM orders
+        JOIN accounts ON accounts.userid = orders.userid
+        JOIN order_snacks ON order_snacks.orderid = orders.orderid
+        JOIN snacks ON order_snacks.snackid = snacks.id
+        WHERE orders.orderid = ?`, [orderid])
+      .then((resp) => {
+        console.log(resp.rows)
+        for (lineItem in ){
+
+        }
+        helpers.passParamsForRender(req, res, 'order_view', {'orderInfo': resp.rows});
+      })
+      /*.join('')
       .select('snackid', 'quantity')
-
-
-
-
 
       .where('orderid', orderid)
       .then((resp) => {
@@ -130,7 +139,7 @@ module.exports = (knex) => {
         // console.log(resp)
         helpers.passParamsForRender(req, res, 'order_view', {
           'orderInfo': orderInfo});
-      })
+      })*/
       .catch((error) => {
         console.error(error)
       })

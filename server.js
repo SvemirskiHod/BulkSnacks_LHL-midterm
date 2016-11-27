@@ -27,6 +27,7 @@ app.use(session({
 // Seperated Routes for each Resource
 const usersRoutes = require('./routes/users');
 const orderRoutes = require('./routes/orders');
+const adminRoutes = require('./routes/admin');
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -68,6 +69,7 @@ app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
 // Mount all resource routes
 app.use('/api/users', usersRoutes(knex));
 app.use('/api/orders', orderRoutes(knex));
+app.use('/api/admin', adminRoutes(knex));
 
 // ---- home page ----
 app.get('/', (req, res) => {
