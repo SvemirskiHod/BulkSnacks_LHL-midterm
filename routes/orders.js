@@ -90,57 +90,28 @@ module.exports = (knex) => {
   app.get('/:id', (req, res) => {
     const orderid = req.params.id;
     knex.raw
-      (`SELECT price, orders.orderid, accounts.name, phone, snacks.name, order_snacks.quantity
+      (`SELECT price, orders.orderid, accounts.name AS person, phone, snacks.name AS snackname, order_snacks.quantity
         FROM orders
         JOIN accounts ON accounts.userid = orders.userid
         JOIN order_snacks ON order_snacks.orderid = orders.orderid
         JOIN snacks ON order_snacks.snackid = snacks.id
         WHERE orders.orderid = ?`, [orderid])
       .then((resp) => {
-        console.log(resp.rows)
-        const orderinfo = []
-        for (lineItem in resp.rows){
-          console.log('nn')
-          // orderInfo.push()
+        const orderInfo = [];
+        for (let lineItem in resp.rows) {
+          const item = resp.rows[lineItem];
+          orderInfo.push({
+            'price': item.price,
+            'orderid': item.orderid,
+            'person': item.person,
+            'phone': item.phone,
+            'snackname': item.snackname,
+            'quantity': item.quantity
+          });
         }
-        helpers.passParamsForRender(req, res, 'order_view', {'orderInfo': resp.rows});
+        // console.log(orderInfo);
+        helpers.passParamsForRender(req, res, 'order_view', {'orderInfo': orderInfo});
       })
-      /*.join('')
-      .select('snackid', 'quantity')
-
-      .where('orderid', orderid)
-      .then((resp) => {
-        // resp will be array of resp[n].snackid, resp[n].quantity values
-        // build up array of snack info objects for render
-        resp.forEach((lineItem) => {
-          const quant = lineItem.quantity
-          knex('snacks')
-            .select('name', 'price')
-            .where('id', lineItem.snackid)
-            .then((snackinfo) => {
-              for (var snack in snackinfo) {
-
-                orderInfo.push({
-                  'name': snackinfo[snack].name,
-                  'price': snackinfo[snack]['price'],
-                  'quantity': quant
-                })
-              }
-            })
-            .catch((error) => {
-              console.error(error)
-            })
-        })
-        // helpers.passParamsForRender(req, res, 'order_view', {'orderInfo': orderInfo});
-
-      })
-      .then((resp) => {
-        console.log('in next then', orderInfo)
-        // render per-order view, passing orderInfo array
-        // console.log(resp)
-        helpers.passParamsForRender(req, res, 'order_view', {
-          'orderInfo': orderInfo});
-      })*/
       .catch((error) => {
         console.error(error)
       })
