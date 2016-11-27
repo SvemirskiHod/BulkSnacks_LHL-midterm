@@ -89,9 +89,15 @@ module.exports = (knex) => {
   }),
   app.get('/:id', (req, res) => {
     const orderid = req.params.id;
-    let orderInfo = [];
+    const orderInfo = [];
     knex('order_snacks')
+      .join('')
       .select('snackid', 'quantity')
+
+
+
+
+
       .where('orderid', orderid)
       .then((resp) => {
         // resp will be array of resp[n].snackid, resp[n].quantity values
@@ -99,15 +105,15 @@ module.exports = (knex) => {
         resp.forEach((lineItem) => {
           const quant = lineItem.quantity
           knex('snacks')
-            .select('name', 'price-per-100g')
+            .select('name', 'price')
             .where('id', lineItem.snackid)
             .then((snackinfo) => {
-              console.log(snackinfo)
-              for(var snack in snackinfo[0]) {
+              for (var snack in snackinfo) {
+
                 orderInfo.push({
-                  'quantity': quant,
-                  'snackName': snackinfo[0].name,
-                  'snackPrice': snackinfo[0]['price-per-100g']
+                  'name': snackinfo[snack].name,
+                  'price': snackinfo[snack]['price'],
+                  'quantity': quant
                 })
               }
             })
@@ -115,10 +121,11 @@ module.exports = (knex) => {
               console.error(error)
             })
         })
+        // helpers.passParamsForRender(req, res, 'order_view', {'orderInfo': orderInfo});
 
       })
       .then((resp) => {
-        console.log(resp)
+        console.log('in next then', orderInfo)
         // render per-order view, passing orderInfo array
         // console.log(resp)
         helpers.passParamsForRender(req, res, 'order_view', {
@@ -128,12 +135,6 @@ module.exports = (knex) => {
         console.error(error)
       })
   })
-
-  /*,
-  app.get('/new', (req, res) => {
-
-  })*/
-
   return app;
 }
 

@@ -48,10 +48,10 @@
                 <input id="<%=snackInBasket.id%>" type="number"
                 value="<%= Number(obj[array[counter]]) %>" class="qty"
                 min="1" readonly/><br>
-              <h6>Price per scoop: $<span class="price"><%= (snackInBasket["price-per-100g"]/100).toFixed(2) %></span>
+              <h6>Price per scoop: $<span class="price"><%= (snackInBasket["price"]/100).toFixed(2) %></span>
               </h6>
               <h6><strong>Item total: $
-                <span class="product-total"><%= (Number(obj[array[counter]])*snackInBasket["price-per-100g"]/100).toFixed(2) %></span>
+                <span class="product-total"><%= (Number(obj[array[counter]])*snackInBasket["price"]/100).toFixed(2) %></span>
                 </strong>
               </h6>
               <button class="btn btn-success add-quantity"> + </button>
