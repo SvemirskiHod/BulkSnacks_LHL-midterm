@@ -27,8 +27,9 @@ module.exports = (knex) => {
 
   app.post('/login', (req, res) => {
     // correct uppercase email entry
-    const email    = req.body.email.toLowerCase();
-    const password = req.body.password;
+    const email       = req.body.email.toLowerCase();
+    const password    = req.body.password;
+    const currentPage = req.get('referer').slice(21);
 
     knex('accounts')
       .select('*').where('email', email)
@@ -46,7 +47,6 @@ module.exports = (knex) => {
           });
         }
         else {
-          const currentPage = req.get('referer').slice(21);
           req.session.user_id = account[0].userid;
           res.redirect(currentPage);
         }
