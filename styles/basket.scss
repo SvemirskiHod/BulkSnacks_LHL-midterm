@@ -1,0 +1,24 @@
+div.container.cart {
+  button.btn-success.empty-cart, button.btn-success.checkout-button {
+    float: right;
+    margin: 10px;
+  }
+  a {
+    text-shadow: 0.8px 0.8px 2px black;
+  }
+  img {
+    height: 150px;
+    width: 150px;
+    margin: 10px
+  }
+  input {
+    font-size: 1.3em;
+    width: 155px;
+  }
+  h6 {
+    font-size: 1.1em;
+  }
+  h4 {
+    font-weight: 700;
+  }
+}

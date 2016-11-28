@@ -1,0 +1,30 @@
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product-card {
+  padding: 2%;
+  flex-grow: 1;
+  flex-basis: 16%;
+  display: flex; /* so child elements can use flexbox stuff too! */
+}
+
+.product-card.featured {
+  background-image: url('/images/featured-bang.png')
+}
+.product-card {
+  flex: 1 16%;
+}
+.product-image img {
+  height: 300px;
+  width: 300px;
+}
+.product-image-lg img {
+  height: 500px;
+  width: 500px;
+}
+.product-info {
+  margin-top: auto; //CENTER TEXT VERTICALLY HERE
+}

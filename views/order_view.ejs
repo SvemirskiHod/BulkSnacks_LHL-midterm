@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include partials/_head%>
+  </head>
+
+  <body>
+    <% include partials/_nav %>
+    <div class="jumbotron">
+      <div class="container">
+        <h2>hello, scoopmaster</h2>
+        <p>Your order requests await.</p>
+        <br><br>
+
+      </div>
+    </div>
+
+    <div class="admin-view container">
+
+      <div class="row">
+        <div class="col-lg-12">
+          <h2 class="return-to-orders"><a href="/api/orders/active">back to all orders</a></h2>
+          <h2>Order ID: <%= orderInfo[0].orderid %></h2>
+          <p>name: <%= orderInfo[0].person %></p>
+          <p id="phonenumber" data-phone="<%= orderInfo[0].phone %>">phone: <%= orderInfo[0].phone %></p>
+          <hr>
+          <p>order details:</p>
+          <table class="order-items">
+            <tr>
+              <th>quantity</th>
+              <th>snack</th>
+            </tr>
+            <% orderInfo.forEach(function(lineItem) { %>
+            <tr class="itemdata" data-lineprice="<%= ((lineItem.quantity * lineItem.price)/100).toFixed(2) %>">
+              <td><%= lineItem.quantity*100 %>g</td>
+              <td><%= lineItem.snackname %></td>
+            </tr>
+            <% }); %>
+          </table>
+          <hr>
+          <p class="order-total-price"></p>
+          <p>Notify your customer - how many minutes until it's ready?</p>
+          <form id="sms-notify">
+            <input type="number" value=10>
+            <button id="sms-submit" class="btn btn-success" type="submit">send SMS</button>
+          </form>
+
+        </div>
+      <% include partials/_footer %>
+    </div> <!-- /container -->
+
+    <% include partials/_scripts %>
+
+  </body>
+</html>

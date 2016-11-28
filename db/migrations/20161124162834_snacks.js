@@ -6,9 +6,10 @@ exports.up = function(knex, Promise) {
       // snack description
       table.string('name');
       // price per 100g
-      table.integer('price-per-100g');
+      table.integer('price');
       // image filename
-      table.string('img-filename')
+      table.string('img-filename');
+      table.integer('featured')
     })
   ])
 };

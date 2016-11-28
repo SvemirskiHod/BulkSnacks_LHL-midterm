@@ -1,17 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Home Page</title>
-
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
+    <% include partials/_head%>
   </head>
 
   <body>
-    <h1>Hello World!</h1>
+    <% include partials/_nav %>
+    <div class="jumbotron">
+      <div class="container">
+        <% include partials/_header %>
+        <p>Let's get right to the good stuff.<br>
+        Order the snacks you love to go, in bulk.<br>
+        Let us do the scooping.</p>
+        <% include partials/_register_prompt %>
+      </div>
+    </div>
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <a href="/snacks">
+          <div class="block-1 col-md-6">
+            <h2 class="no-shadow">all the snacks</h2>
+            <p>Browse our curated selection of delicious snacks.<br>
+               Munchy success is only a few clicks away.
+            </p>
+          </div>
+        </a>
+        <a href="/featured">
+          <div class="block-2 col-md-6">
+            <h2 class="no-shadow">featured snacks</h2>
+            <p>Our go-to treats will be your new favourites.</p>
+          </div>
+        </a>
+        </div>
+
+      <% include partials/_footer %>
+    </div> <!-- /container -->
+
+    <% include partials/_scripts %>
+
   </body>
 </html>

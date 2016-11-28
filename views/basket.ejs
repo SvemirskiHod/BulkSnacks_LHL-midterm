@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <% include partials/_head %>
+  </head>
+
+  <body>
+    <% include partials/_nav %>
+    <div class="jumbotron">
+      <div class="container">
+        <% if(array.length === 0){ %>
+        <h2>looks like there's nothing here</h2>
+        <p>An empty basket is a sad basket.<br>
+        <a href="/snacks">
+          Click here to start adding some snacks to your basket<br><br>
+        </p>
+        </a>
+        <% } else { %>
+        <h2>welcome to your basket</h2>
+        <p>Have a look at the snacks you have already added.<br>
+          <a href="/snacks">Or add some more</a>
+          <br><br>
+        </p>
+        <% }%>
+
+        <% include partials/_register_prompt %>
+      <!--  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p> -->
+      </div>
+    </div>
+
+    <div class="container cart">
+      <% include partials/_checkout %>
+      <!-- Example row of columns -->
+      <h2>Basket Total: $<span id="total"></span></h2>
+
+      <div class="row">
+        <!-- Begin product template -->
+        <section class="products">
+          <% snacks.forEach(function(snackInBasket, counter){ %>
+          <div class="product-card">
+            <div class="product-image">
+              <img src="snack_images/<%= snackInBasket['img-filename']%>" alt="picture">
+            </div>
+            <div class="product-info">
+              <h4> <%= snackInBasket.name%> </h4>
+              <h6>100g scoops:</h6>
+                <input id="<%=snackInBasket.id%>" type="number"
+                value="<%= Number(obj[array[counter]]) %>" class="qty"
+                min="1" readonly/><br>
+              <h6>Price per scoop: $<span class="price"><%= (snackInBasket["price"]/100).toFixed(2) %></span>
+              </h6>
+              <h6><strong>Item total: $
+                <span class="product-total"><%= (Number(obj[array[counter]])*snackInBasket["price"]/100).toFixed(2) %></span>
+                </strong>
+              </h6>
+              <button class="btn btn-success add-quantity"> + </button>
+              <button class="btn btn-success reduce-quantity"> - </button>
+              <button class="btn btn-success remove-item">Remove</button>
+
+            </div>
+          </div>
+          <% }) %>
+        </section>
+      </div>
+      <!-- End product template -->
+
+      <% include partials/_scripts %>
+      <% include partials/_footer %>
+    </div> <!-- /container -->
+
+
+
+      <script src="scripts/basketscripts.js"></script>
+    </body>
+    </html>

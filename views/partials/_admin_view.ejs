@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h2>all orders</h2>
+    <table>
+      <tr>
+        <th>Order ID</th>
+      </tr>
+      <% allOrders.forEach(function(order) { %>
+      <tr class="order-list">
+        <td><a href="/api/orders/<%= order.orderid %>"><button class="btn btn-success"><%= order.orderid %></button></a></td>
+      </tr>
+      <% }); %>
+    </table>
+
+
+  </div>

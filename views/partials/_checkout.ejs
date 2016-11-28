@@ -1,0 +1,8 @@
+<% if (!name) { %>
+<h4>Ready to checkout? Please <strong>sign in</strong> or <strong>register</strong> above</h4>
+<% } else { %>
+<form id="checkout-form">
+  <button class="btn btn-success checkout-button" type="submit">Place order</button>
+</form>
+<button class="btn btn-success empty-cart"> Empty Cart </button>
+<% }; %>

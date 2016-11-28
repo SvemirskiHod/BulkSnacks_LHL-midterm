@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include partials/_head%>
+
+  </head>
+
+  <body>
+    <% include partials/_nav %>
+    <div class="jumbotron">
+      <div class="container">
+        <% include partials/_header %>
+        <p>Check out our awesome snack options!<br><br><br></p>
+        <% include partials/_register_prompt %>
+      </div>
+    </div>
+    <div class="container">
+      <!-- Example row of columns -->
+      <h2>salivating yet? <a href="/snacks">click here and start scoopin'</a></h2><br>
+      <div class="row">
+
+        <section class="products">
+
+        <% snacks.forEach(function(elm){ %>
+          <div class="product-card">
+            <div class="product-image-lg">
+              <img src="snack_images/<%= elm['img-filename']%>" alt="picture">
+            </div>
+            <div class="product-info">
+              <h4> <%= elm.name%> </h4>
+            </div>
+          </div>
+            <% }) %>
+        </section>
+
+      </div>
+      <hr>
+      <% include partials/_footer %>
+    </div> <!-- /container -->
+    <% include partials/_scripts %>
+  </body>
+
+
+
+
+</html>
