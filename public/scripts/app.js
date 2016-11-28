@@ -11,13 +11,12 @@ $(document).ready(function() {
   $('button.add_item_button').click(function() {
     $('#main-basket').css('-webkit-filter', 'brightness(2)');
     $('#main-basket').css('border', '3px solid black');
-    $('#main-basket').css('border-radius', '25px');
+    $('#main-basket').css('border-radius', '20px');
     setTimeout(function() {
       $('#main-basket').css('-webkit-filter', 'brightness(1)')
       $('#main-basket').css('border', 'none');
     }, 600);
   });
-
   $('p.order-total-price').text(function() {
     var itemTotal = 0;
     $('tr.itemdata').each(function(row) {

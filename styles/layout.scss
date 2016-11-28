@@ -46,6 +46,12 @@ div.container a {
   color: white;
   text-shadow: 1px 1px 7px black;
 }
+h2.no-shadow {
+  text-shadow: none;
+  :hover {
+    text-shadow: none;
+  }
+}
 .block-1 {
   background-image: url('/images/jubejubes-lg.jpg');
 }
