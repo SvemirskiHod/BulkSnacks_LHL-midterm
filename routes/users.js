@@ -29,7 +29,12 @@ module.exports = (knex) => {
     // correct uppercase email entry
     const email       = req.body.email.toLowerCase();
     const password    = req.body.password;
-    const currentPage = req.get('referer').slice(21);
+    /*
+    currentPage gets current URL from req,
+    strips prefix and (if present) 'api/users/login'
+    to fix broken redirect following bad login/pwd attempt.
+    */
+    const currentPage = req.get('referer').slice(21).replace('api/users/login', '');
 
     knex('accounts')
       .select('*').where('email', email)
@@ -46,6 +51,7 @@ module.exports = (knex) => {
             errors: {badpass: true}
           });
         }
+        // user redirected to CURRENT page assuming user/password OK
         else {
           req.session.user_id = account[0].userid;
           res.redirect(currentPage);
