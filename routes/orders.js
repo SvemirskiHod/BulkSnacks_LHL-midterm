@@ -10,7 +10,7 @@ const textOwner  = (orderid) => {
     \nYou have a new order!
     \nOrderID: ${orderid}
     \nSee the details:
-    \nhttp://localhost:8080/api/orders/active
+    \nhttp://localhost:8080/api/orders/${orderid}
   `;
   // hard-coded for demo purposes
   return newSMS(6472741621, messageToOwner);
@@ -106,32 +106,41 @@ module.exports = (knex) => {
   // -- ORDER DETAILS --
   app.get('/:id', (req, res) => {
     const orderid = req.params.id;
-    knex.raw
-      (`SELECT price, orders.orderid, accounts.name AS person, phone, snacks.name AS snackname, order_snacks.quantity
-        FROM orders
-        JOIN accounts ON accounts.userid = orders.userid
-        JOIN order_snacks ON order_snacks.orderid = orders.orderid
-        JOIN snacks ON order_snacks.snackid = snacks.id
-        WHERE orders.orderid = ?`, [orderid])
-      .then((resp) => {
-        const orderInfo = [];
-        for (let lineItem in resp.rows) {
-          const item = resp.rows[lineItem];
-          orderInfo.push({
-            'price': item.price,
-            'orderid': item.orderid,
-            'person': item.person,
-            'phone': item.phone,
-            'snackname': item.snackname,
-            'quantity': item.quantity
+    if (req.session.user_id === 1) {
+      knex.raw
+        (`SELECT price, orders.orderid, accounts.name AS person, phone, snacks.name AS snackname, order_snacks.quantity
+          FROM orders
+          JOIN accounts ON accounts.userid = orders.userid
+          JOIN order_snacks ON order_snacks.orderid = orders.orderid
+          JOIN snacks ON order_snacks.snackid = snacks.id
+          WHERE orders.orderid = ?`, [orderid])
+        .then((resp) => {
+          const orderInfo = [];
+          for (let lineItem in resp.rows) {
+            const item = resp.rows[lineItem];
+            orderInfo.push({
+              'price': item.price,
+              'orderid': item.orderid,
+              'person': item.person,
+              'phone': item.phone,
+              'snackname': item.snackname,
+              'quantity': item.quantity
+            });
+          }
+          // console.log(orderInfo);
+          helpers.passParamsForRender(req, res, 'order_view', {
+            orderInfo: orderInfo,
+            admin: true
           });
-        }
-        // console.log(orderInfo);
-        helpers.passParamsForRender(req, res, 'order_view', {'orderInfo': orderInfo});
-      })
-      .catch((error) => {
-        console.error(error)
-      })
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+      } else {
+        helpers.passParamsForRender(req, res, 'all_orders', {
+          admin: false
+        });
+      }
   }),
   // -- NOTIFY customer --
   app.post('/notify', (req, res) => {

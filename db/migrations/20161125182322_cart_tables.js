@@ -3,9 +3,9 @@ exports.up = function(knex, Promise) {
   return Promise.all([
     knex.schema.createTable('orders', function(table){
       table.increments('orderid');
-      // user id from 'accounts' table
       table.integer('userid').unsigned();
       table.foreign('userid').references('accounts.userid');
+      table.timestamp('created_at').defaultTo(knex.fn.now());
     }),
     knex.schema.createTable('order_snacks', function(table){
       table.increments('id');
