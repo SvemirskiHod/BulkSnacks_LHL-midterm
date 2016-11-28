@@ -25,9 +25,10 @@ app.use(session({
 
 
 // Seperated Routes for each Resource
-const usersRoutes = require('./routes/users');
-const orderRoutes = require('./routes/orders');
-const adminRoutes = require('./routes/admin');
+const usersRoutes   = require('./routes/users');
+const orderRoutes   = require('./routes/orders');
+const adminRoutes   = require('./routes/admin');
+const generalRoutes = require('./routes/general');
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -67,56 +68,10 @@ app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
 
 
 // Mount all resource routes
-app.use('/api/users', usersRoutes(knex));
+app.use('/api/users',  usersRoutes(knex));
 app.use('/api/orders', orderRoutes(knex));
-app.use('/api/admin', adminRoutes(knex));
-
-// ---- home page ----
-app.get('/', (req, res) => {
-  helpers.passParamsForRender(req, res, 'index', {});
-});
-
-app.get('/password')
-// ---- snacks list ----
-app.get("/snacks", (req,res) =>{
-  // find all the snacks in the 'snacks' table
-  knex
-    .select()
-    .from('snacks')
-    .then((result) => {
-      helpers.passParamsForRender(req, res, 'snacks', {snacks: result});
-    })
-    .catch(function(err){
-      console.log(err);
-    });
-});
-// ---- registration ----
-app.get('/register', (req, res) => {
-  helpers.passParamsForRender(req, res, 'register', {});
-});
-
-// ---- basket / checkout ----
-app.get("/basket", (req,res) =>{
-  //console.log(req.query);
-  let idArray = [];
-  let idStringArray = idArray;
-    for(var key in req.query){
-      idArray.push(key);
-    }
-  idArray = idArray.map(Number);
-  console.log(idArray);
-
-  knex
-    .select()
-    .from('snacks')
-    .whereIn('id', idArray)
-    .then(function(result){
-      helpers.passParamsForRender(req, res, 'basket', {snacks: result, array: idStringArray, obj: req.query});
-    })
-    .catch(function(err){
-      console.log(err);
-    });
-});
+app.use('/api/admin',  adminRoutes(knex));
+app.use('/',         generalRoutes(knex));
 
 
 /*

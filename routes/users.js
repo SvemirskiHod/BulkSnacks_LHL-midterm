@@ -49,7 +49,6 @@ module.exports = (knex) => {
           const currentPage = req.get('referer').slice(21);
           req.session.user_id = account[0].userid;
           res.redirect(currentPage);
-          // helpers.passParamsForRender(req, res, 'index', {});
         }
       })
       .catch((error) => {

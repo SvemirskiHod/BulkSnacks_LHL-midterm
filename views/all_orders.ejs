@@ -34,30 +34,24 @@
     </nav>
     <div class="jumbotron">
       <div class="container">
-        <h2>hello, scoopmaster</h2>
-        <p>Your order requests await.</p>
-        <br><br>
+
+        <% if (admin) { %>
+
+        <% include partials/_orders_auth %>
+
+        <% } else { %>
+
+        <% include partials/_get_out %>
+
+        <% }; %>
 
       </div>
     </div>
     <div class="admin-view container">
+      <% if (admin) { %>
+      <% include partials/_admin_view %>
+      <% }; %>
 
-      <div class="row">
-          <div class="col-lg-12">
-            <h2>all orders</h2>
-            <table>
-              <tr>
-                <th>Order ID</th>
-              </tr>
-              <% allOrders.forEach(function(order) { %>
-              <tr class="order-list">
-                <td><a href="/api/orders/<%= order.orderid %>"><%= order.orderid %></a></td>
-              </tr>
-              <% }); %>
-            </table>
-
-
-          </div>
       <% include partials/_footer %>
     </div> <!-- /container -->
 

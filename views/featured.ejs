@@ -12,30 +12,22 @@
         <% include partials/_header %>
         <p>Check out our awesome snack options!<br><br><br></p>
         <% include partials/_register_prompt %>
-       <!--  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p> -->
       </div>
     </div>
     <div class="container">
       <!-- Example row of columns -->
-      <h2>click the basket at the top anytime</h2><br>
+      <h2>salivating yet? <a href="/snacks">click here to start building your cart</a></h2><br>
       <div class="row">
 
         <section class="products">
 
         <% snacks.forEach(function(elm){ %>
-          <% if(elm.featured === 1) { %>
-          <div class="product-card featured">
-          <% } else { %>
           <div class="product-card">
-          <% }; %>
-
-            <div class="product-image">
+            <div class="product-image-lg">
               <img src="snack_images/<%= elm['img-filename']%>" alt="picture">
             </div>
             <div class="product-info">
-              <h5> <%= elm.name%> </h5>
-              <h6>$<%= elm["price"]/100 %> per 100g </h6>
-              <button data-productid="<%=elm.id%>" class="btn btn-success add_item_button">Add 100g scoop</button>
+              <h4> <%= elm.name%> </h4>
             </div>
           </div>
             <% }) %>
@@ -46,7 +38,6 @@
       <% include partials/_footer %>
     </div> <!-- /container -->
     <% include partials/_scripts %>
-    <script src="scripts/add_to_cart_button.js"></script>
   </body>
 
 

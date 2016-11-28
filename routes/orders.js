@@ -12,12 +12,21 @@ const textOwner  = (orderid) => {
     \nSee the details:
     \nhttp://localhost:8080/api/orders/active
   `;
+  // hard-coded for demo purposes
   return newSMS(6472741621, messageToOwner);
+}
+
+const textUserOrderTime = (userPhone, minutes) => {
+  const messageOrderTime = `
+  \nBulkSnacks here...
+  \nYour order will be ready in ${minutes} minutes.
+  `;
+  return newSMS(userPhone, messageOrderTime);
 }
 
 const textUserOrderPlaced = (userPhone) => {
   const messageOrderPlaced = `
-    \nThanks for your order!
+    \nThanks for using BulkSnacks!
     \nScoops are happening... we'll be in touch soon.
   `;
   return newSMS(userPhone, messageOrderPlaced);
@@ -51,10 +60,9 @@ module.exports = (knex) => {
     knex('orders')
       .returning('orderid')
       .insert({'userid': userid})
-      .then((orderid) => {
-        orderid = orderid;
+      .then((resp) => {
+        orderid = resp;
         const lineItems = buildOrder(basket, orderid[0]);
-        console.log(lineItems)
         knex('order_snacks')
           .insert(lineItems)
           .then(() => {
@@ -81,12 +89,21 @@ module.exports = (knex) => {
     helpers.passParamsForRender(req, res, 'order_done', {})
   }),
   app.get('/active', (req, res) => {
-    knex('orders')
-    .select().then((allOrders) => {
+    if (req.session.user_id === 1) {
+      knex('orders')
+      .select().then((allOrders) => {
+        helpers.passParamsForRender(req, res, 'all_orders', {
+          allOrders: allOrders,
+          admin: true
+        });
+      })
+    } else {
       helpers.passParamsForRender(req, res, 'all_orders', {
-        allOrders: allOrders});
-    })
+        admin: false
+      });
+    }
   }),
+  // -- ORDER DETAILS --
   app.get('/:id', (req, res) => {
     const orderid = req.params.id;
     knex.raw
@@ -115,6 +132,13 @@ module.exports = (knex) => {
       .catch((error) => {
         console.error(error)
       })
+  }),
+  // -- NOTIFY customer --
+  app.post('/notify', (req, res) => {
+    const minutes = req.body.data[0].minutes;
+    const phone = req.body.data[0].phone;
+    textUserOrderTime(phone, minutes);
+    res.send('sent notification SMS');
   })
   return app;
 }
