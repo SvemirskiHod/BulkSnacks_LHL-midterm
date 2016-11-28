@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
       table.increments('orderid');
       table.integer('userid').unsigned();
       table.foreign('userid').references('accounts.userid');
-      table.timestamp('created_at').defaultTo(knex.fn.now());
+      table.string('orderdate');
     }),
     knex.schema.createTable('order_snacks', function(table){
       table.increments('id');

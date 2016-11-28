@@ -4,6 +4,8 @@ const express    = require('express');
 const app        = express.Router();
 const helpers    = require('../server/helper-functions');
 const newSMS     = require('../server/twilio').newSMS;
+const moment     = require('moment');
+
 
 const textOwner  = (orderid) => {
   const messageToOwner  = `
@@ -59,7 +61,10 @@ module.exports = (knex) => {
     let orderid;
     knex('orders')
       .returning('orderid')
-      .insert({'userid': userid})
+      .insert({
+        'userid': userid,
+        'orderdate': moment().format('l LTS')
+      })
       .then((resp) => {
         orderid = resp;
         const lineItems = buildOrder(basket, orderid[0]);
@@ -92,6 +97,7 @@ module.exports = (knex) => {
     if (req.session.user_id === 1) {
       knex('orders')
       .select().then((allOrders) => {
+
         helpers.passParamsForRender(req, res, 'all_orders', {
           allOrders: allOrders,
           admin: true
@@ -108,7 +114,7 @@ module.exports = (knex) => {
     const orderid = req.params.id;
     if (req.session.user_id === 1) {
       knex.raw
-        (`SELECT price, orders.orderid, accounts.name AS person, phone, snacks.name AS snackname, order_snacks.quantity
+        (`SELECT price, orders.orderid, accounts.name AS person, phone, snacks.name AS snackname, order_snacks.quantity, orderdate
           FROM orders
           JOIN accounts ON accounts.userid = orders.userid
           JOIN order_snacks ON order_snacks.orderid = orders.orderid
@@ -118,13 +124,15 @@ module.exports = (knex) => {
           const orderInfo = [];
           for (let lineItem in resp.rows) {
             const item = resp.rows[lineItem];
+            console.log(item.orderdate)
             orderInfo.push({
               'price': item.price,
               'orderid': item.orderid,
               'person': item.person,
               'phone': item.phone,
               'snackname': item.snackname,
-              'quantity': item.quantity
+              'quantity': item.quantity,
+              'orderdate': item.orderdate
             });
           }
           // console.log(orderInfo);
@@ -151,4 +159,3 @@ module.exports = (knex) => {
   })
   return app;
 }
-

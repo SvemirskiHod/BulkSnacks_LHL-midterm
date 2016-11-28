@@ -21,8 +21,9 @@
         <div class="col-lg-12">
           <h2 class="return-to-orders"><a href="/api/orders/active">back to all orders</a></h2>
           <h2>Order ID: <%= orderInfo[0].orderid %></h2>
-          <p>name: <%= orderInfo[0].person %></p>
-          <p id="phonenumber" data-phone="<%= orderInfo[0].phone %>">phone: <%= orderInfo[0].phone %></p>
+          <p>name: <em><%= orderInfo[0].person %></em></p>
+          <p id="phonenumber" data-phone="<%= orderInfo[0].phone %>">phone: <em><%= orderInfo[0].phone %></em></p>
+          <p>order date/time: <em><%= orderInfo[0].orderdate %></em></p>
           <hr>
           <p>order details:</p>
           <table class="order-items">

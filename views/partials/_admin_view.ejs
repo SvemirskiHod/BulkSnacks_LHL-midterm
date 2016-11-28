@@ -8,6 +8,7 @@
       <% allOrders.forEach(function(order) { %>
       <tr class="order-list">
         <td><a href="/api/orders/<%= order.orderid %>"><button class="btn btn-success"><%= order.orderid %></button></a></td>
+        <td class="datestamp"><%= order.orderdate %></td>
       </tr>
       <% }); %>
     </table>

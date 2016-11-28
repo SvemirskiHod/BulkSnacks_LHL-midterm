@@ -1,11 +1,9 @@
 body {
   background-color: #EEE;
-
   h1 {
     color: #244751;
   }
 }
-
 button.btn.btn-success {
   font-weight: 700;
 }
@@ -90,7 +88,6 @@ p.registration {
     color: #FC292A;
     text-decoration: none;
   }
-
 }
 .jumbotron .registration a:hover {
   color: white;
@@ -102,9 +99,11 @@ strong a {
     color: #FC292A;
   }
 }
-
-p.footer {
-  font-size: 100%;
+footer {
+  margin-top: 20px
+  p.footer {
+    font-size: 100%;
+  }
 }
 p.info-p {
   margin-top: 20px;
