@@ -7,8 +7,8 @@ Started at the beginning of week 4 of Lighthouse Labs Web bootcamp.
 
 _Built in 6 days with Joao Coelho from the ground up, save for a basic structure and server skeleton._
 
-## Learned during this project
-- Postgres
+## Learned during this project (a lot!)
+- Postgres & SQL-based DB schemas in general
 - knex for database calls, migrations and seeds
 - using Javascript Promises
 - using Git in a team
@@ -21,8 +21,10 @@ _Built in 6 days with Joao Coelho from the ground up, save for a basic structure
 
 ## Improvements that could still be made
 - lots of possible refactoring
+- added site functionality (user favourites, past orders/reorder etc)
 - several functions and variables not named particularly well, partly due to the time crunch
 - better use of ES6, destructuring and more concise expressions
+- expanded use of Bootstrap (snacks, basket pages not great on mobile)
 
 ## Getting Started
 
