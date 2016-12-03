@@ -3,7 +3,9 @@
 ## The best way to pre-order snacks, in bulk!
 Inspired by bulk-barn, this is an e-commerce site for ordering snacks, similar to ritual. 
 
-_Built in 6 days with Joao Coelho_ from the ground up, save for a basic structure and server skeleton.
+Started at the beginning of week 4 of Lighthouse Labs Web bootcamp.
+
+_Built in 6 days with Joao Coelho from the ground up, save for a basic structure and server skeleton._
 
 ## Learned during this project
 - Postgres
