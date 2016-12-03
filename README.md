@@ -1,8 +1,26 @@
 # Bulk Snacks
 
 ## The best way to pre-order snacks, in bulk!
+Inspired by bulk-barn, this is an e-commerce site for ordering snacks, similar to ritual. 
 
+_Built in 6 days with Joao Coelho_ from the ground up, save for a basic structure and server skeleton.
 
+## Learned during this project
+- Postgres
+- knex for database calls, migrations and seeds
+- using Javascript Promises
+- using Git in a team
+- Bootstrap (definitely lots more to learn and didn't take full advantage on all pages)
+- modularized routes in Express
+- Twilio API
+- registration page logic (from scratch, using a library would have been simpler)
+- ES6 (on the back end)
+- JQuery AJAX requests
+
+## Improvements that could still be made
+- lots of possible refactoring
+- several functions and variables not named particularly well, partly due to the time crunch
+- better use of ES6, destructuring and more concise expressions
 
 ## Getting Started
 
@@ -12,6 +30,8 @@
 4. open [localhost:8080](http://localhost:8080/) in your favourite browser (Chrome suggested)
 
 ... and you're on your way to tasty snacks!
+
+*Note:* Some dotenv config needed for the postgres database. For Twilio you'll need an account / API key.
 
 ## Dependencies
 - Node 5.10.x or above
