@@ -5,7 +5,7 @@ Inspired by bulk-barn, this is an e-commerce site for ordering snacks, similar t
 
 Started at the beginning of week 4 of Lighthouse Labs Web bootcamp.
 
-_Built in 6 days with Joao Coelho from the ground up, from a (provided) folder structure and server skeleton._
+_Built in 6 days with Joao Coelho (SvemirskiHod) from the ground up, from a (provided) folder structure and server skeleton._
 
 ## Learned during this project (a lot!)
 - Postgres & SQL-based DB schemas in general
