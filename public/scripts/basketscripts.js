@@ -86,9 +86,7 @@ $(document).ready(function() {
     basket = JSON.parse(localStorage.getItem('basket'));
     delete basket[id];
     localStorage.setItem('basket', JSON.stringify(basket));
-    //debugger;
     $("#main-basket").click();
-    //$(this).closest(".product-card").remove();
     updateTotal();
   });
 

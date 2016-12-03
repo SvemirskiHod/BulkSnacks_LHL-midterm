@@ -7,14 +7,15 @@ $(document).ready(function() {
     }
     window.location.href = "/basket?" + $.param(JSON.parse(localStorage.getItem('basket')));
   });
-
+  // add small visual effect when items added to basket
   $('button.add_item_button').click(function() {
-    $('#main-basket').css('-webkit-filter', 'brightness(2)');
-    $('#main-basket').css('border', '3px solid black');
-    $('#main-basket').css('border-radius', '20px');
+    var $basket = $('#main-basket');
+    $basket.css('-webkit-filter', 'brightness(2)');
+    $basket.css('border', '3px solid black');
+    $basket.css('border-radius', '20px');
     setTimeout(function() {
-      $('#main-basket').css('-webkit-filter', 'brightness(1)')
-      $('#main-basket').css('border', 'none');
+      $basket.css('-webkit-filter', 'brightness(1)')
+      $basket.css('border', 'none');
     }, 600);
   });
   $('p.order-total-price').text(function() {
